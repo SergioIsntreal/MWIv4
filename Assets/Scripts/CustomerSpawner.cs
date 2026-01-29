@@ -17,26 +17,37 @@ public class CustomerSpawner : MonoBehaviour
 
     private float nextSpawnTime;
     private float timer;
+    private bool firstSpawnDone = false;
 
     void Start()
     {
-        // Set the very first spawn time
-        SetRandomNextSpawn();
+        // FORCE FIX: First customer comes quickly (0 to 3 seconds)
+        nextSpawnTime = Random.Range(0f, 3f);
+        timer = 0f;
     }
 
     void Update()
     {
-        // Only run logic if the bistro is actually open
-        if (timeManager != null && timeManager.IsBistroOpen())
-        {
-            timer += Time.deltaTime;
+        // Safety Check: If TimeManager is missing or Bistro is closed, do nothing
+        if (timeManager == null || !timeManager.IsBistroOpen()) return;
 
-            if (timer >= nextSpawnTime)
+        timer += Time.deltaTime;
+
+        if (timer >= nextSpawnTime)
+        {
+            SpawnRandomCustomer();
+
+            // Reset timer
+            timer = 0;
+
+            // Set next interval. If it was the first spawn, switch to normal intervals.
+            if (!firstSpawnDone)
             {
-                SpawnRandomCustomer();
-                timer = 0;
-                SetRandomNextSpawn(); // Pick a new random time for the next person
+                firstSpawnDone = true;
             }
+
+            // Set the random time for the NEXT customer
+            nextSpawnTime = Random.Range(minSpawnInterval, maxSpawnInterval);
         }
     }
 
@@ -46,12 +57,9 @@ public class CustomerSpawner : MonoBehaviour
 
         // Pick a random index from our list
         int randomIndex = Random.Range(0, customerPrefabs.Count);
-        GameObject selectedPrefab = customerPrefabs[randomIndex];
+        Instantiate(customerPrefabs[randomIndex], transform.position, Quaternion.identity);
 
-        // Instantiate at the spawner's position
-        Instantiate(selectedPrefab, transform.position, Quaternion.identity);
-
-        Debug.Log($"A new {selectedPrefab.name} has arrived!");
+        Debug.Log($"A new customer has arrived!");
     }
 
     void SetRandomNextSpawn()
