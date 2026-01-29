@@ -12,6 +12,11 @@ public class BistroManager : MonoBehaviour
 
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.F1))
+        {
+            ForceResetRound();
+        }
+
         if (Input.GetMouseButtonDown(0))
         {
             // Everything below is for my waypoints
@@ -36,59 +41,69 @@ public class BistroManager : MonoBehaviour
     }
 
     void HandleClick(Vector3 worldPos, InteractableObject obj)
+    {
+        Employee bestCandidate = GetNextAvailableEmployee();
+
+        if (bestCandidate != null)
         {
-            Employee bestCandidate = GetNextAvailableEmployee();
+            // Use the centering logic from earlier
+            float gridSize = 1.0f;
+            float x = Mathf.Floor(worldPos.x / gridSize) * gridSize + (gridSize / 2f);
+            float y = Mathf.Floor(worldPos.y / gridSize) * gridSize + (gridSize / 2f);
+            Vector3 finalPos = new Vector3(x, y, 0);
 
-            if (bestCandidate != null)
-            {
-                // Use the centering logic from earlier
-                float gridSize = 1.0f;
-                float x = Mathf.Floor(worldPos.x / gridSize) * gridSize + (gridSize / 2f);
-                float y = Mathf.Floor(worldPos.y / gridSize) * gridSize + (gridSize / 2f);
-                Vector3 finalPos = new Vector3(x, y, 0);
-
-                // Should send the employee
-                bestCandidate.GoTo(finalPos, obj);
-                bestCandidate.hasMovedThisRound = true;
-            }
-            else
-            {
-                Debug.Log("Everyone is busy or has already moved!");
-            }
+            // Should send the employee
+            bestCandidate.hasMovedThisRound = true;
+            bestCandidate.GoTo(finalPos, obj);
         }
+        else
+        {
+            Debug.Log("Everyone is busy or has already moved!");
+        }
+    }
 
     Employee GetNextAvailableEmployee()
+    {
+        var eligible = allCharacters.Where(c => !c.IsBusy() && !c.hasMovedThisRound).ToList();
+
+        // If everyone has moved, reset the 'round' so they can move again
+        if (eligible.Count == 0 && !allCharacters.Any(c => c.IsBusy()))
         {
-            var eligible = allCharacters.Where(c => !c.IsBusy() && !c.hasMovedThisRound).ToList();
-
-            // If everyone has moved, reset the 'round' so they can move again
-            if (eligible.Count == 0 && !allCharacters.Any(c => c.IsBusy()))
-            {
-                foreach (var c in allCharacters) c.hasMovedThisRound = false;
-                eligible = allCharacters.Where(c => !c.IsBusy()).ToList();
-            }
-
-            return eligible
-                .OrderByDescending(c => c.moveSpeedStat)
-                .ThenBy(c => c.priorityOrder)
-                .FirstOrDefault();
+            foreach (var c in allCharacters) c.hasMovedThisRound = false;
+            eligible = allCharacters.Where(c => !c.IsBusy()).ToList();
         }
+
+        return eligible
+            .OrderByDescending(c => c.moveSpeedStat)
+            .ThenBy(c => c.priorityOrder)
+            .FirstOrDefault();
+    }
+
+    public void ForceResetRound()
+    {
+        Debug.Log("Manually resetting all employees.");
+        foreach (var c in allCharacters)
+        {
+            c.StopMoving(); // Tell employees to stop
+            c.hasMovedThisRound = false;
+        }
+    }
 
     void UpdateSelectionCircle()
-        {
-            Employee nextWinner = GetNextAvailableEmployee();
+    {
+        Employee nextWinner = GetNextAvailableEmployee();
 
-            if (nextWinner != null && selectionCircle != null)
-            {
-                selectionCircle.gameObject.SetActive(true);
-                selectionCircle.position = nextWinner.transform.position;
-            }
-            else if (selectionCircle != null)
-            {
-                // Hide if literally everyone is busy/moved
-                selectionCircle.gameObject.SetActive(false);
-            }
+        if (nextWinner != null && selectionCircle != null)
+        {
+            selectionCircle.gameObject.SetActive(true);
+            selectionCircle.position = nextWinner.transform.position;
         }
+        else if (selectionCircle != null)
+        {
+            // Hide if literally everyone is busy/moved
+            selectionCircle.gameObject.SetActive(false);
+        }
+    }
 
     void LateUpdate() //This ensures the circle follows smoothly
     {

@@ -22,6 +22,10 @@ public class Employee : MonoBehaviour
     private float taskTimer = 0;
     private bool isWorking = false;
 
+    // For timing out the employee if they get stuck
+    public float movementTimeout = 10.0f; // Max time allowed to reach destination
+    private float movementTimer = 0f;
+    private bool isMoving = false;
 
     // For flipping the sprite when they move
     private SpriteRenderer spriteRenderer;
@@ -43,9 +47,23 @@ public class Employee : MonoBehaviour
 
     public void GoTo(Vector3 position, InteractableObject obj = null)
     {
+        // Wake up the AI
+        if (aiLerp != null)
+        {
+            aiLerp.canMove = true;
+            aiLerp.canSearch = true;
+        }
+        if (destSetter != null) destSetter.enabled = true;
+
+        isMoving = true;
+        movementTimer = 0f; // Reset timer when a new command starts
+
+        aiLerp.canMove = true;
+
         currentTaskObject = obj; // This stores the table/station info
         myInternalTarget.transform.position = position;
         aiLerp.SearchPath();
+        
         isWorking = false;
     }
 
@@ -59,6 +77,19 @@ public class Employee : MonoBehaviour
             StartWorking();
         }
 
+        if (isMoving)
+        {
+            movementTimer += Time.deltaTime;
+
+            // If they take too long, force stop
+            if (movementTimer >= movementTimeout)
+            {
+                Debug.LogWarning(gameObject.name + " got stuck! Timing out.");
+                StopMoving();
+                return;
+            }
+        }
+
         if (isWorking)
         {
             taskTimer += Time.deltaTime;
@@ -67,6 +98,33 @@ public class Employee : MonoBehaviour
                 FinishWorking();
             }
         }
+    }
+
+    public void StopMoving()
+    {
+        isMoving = false;
+        isWorking = false; // Ensure they aren't stuck in a work state
+        movementTimer = 0f;
+        hasMovedThisRound = true;
+
+        // 1. Completely disable the A* components to stop all background math
+        if (aiLerp != null)
+        {
+            aiLerp.canMove = false;
+            aiLerp.canSearch = false; // Stop it from looking for paths
+            aiLerp.SetPath(null);     // Clear the current path
+        }
+
+        if (destSetter != null) destSetter.enabled = false;
+
+        // 2. Snap to Grid
+        float gridSize = 1.0f;
+        float x = Mathf.Floor(transform.position.x / gridSize) * gridSize + (gridSize / 2f);
+        float y = Mathf.Floor(transform.position.y / gridSize) * gridSize + (gridSize / 2f);
+        Vector3 snappedPos = new Vector3(x, y, 0);
+
+        transform.position = snappedPos;
+        myInternalTarget.transform.position = snappedPos;
     }
 
     void StartWorking()
@@ -79,6 +137,7 @@ public class Employee : MonoBehaviour
     void FinishWorking()
     {
         isWorking = false;
+        isMoving = false;
         currentTaskObject = null;
         Debug.Log(characterName + " finished the task!");
 
@@ -87,8 +146,8 @@ public class Employee : MonoBehaviour
 
     public bool IsBusy()
     {
-        // Character is busy if they haven't reached their personal target
-        return !aiLerp.reachedEndOfPath || aiLerp.pathPending;
+        // If we are currently walking OR currently doing a task (like cooking/cleaning)
+        return isMoving || isWorking;
     }
 
     void HandleFlipping()
