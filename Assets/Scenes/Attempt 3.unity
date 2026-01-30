@@ -557,7 +557,6 @@ GameObject:
   m_Component:
   - component: {fileID: 195925028}
   - component: {fileID: 195925027}
-  - component: {fileID: 195925026}
   - component: {fileID: 195925025}
   - component: {fileID: 195925024}
   - component: {fileID: 195925023}
@@ -657,23 +656,6 @@ MonoBehaviour:
   tagPenalties: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
   graphMask:
     value: -1
---- !u!114 &195925026
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 195925021}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3f3d96151bea4aa4290bf9d4ed20713d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveSpeed: 5
-  gridSize: 1
-  obstacleLayer:
-    serializedVersion: 2
-    m_Bits: 128
 --- !u!212 &195925027
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -3284,7 +3266,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1329709890}
   - component: {fileID: 1329709892}
-  - component: {fileID: 1329709891}
   m_Layer: 7
   m_Name: CombinationStation2
   m_TagString: Untagged
@@ -3307,51 +3288,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 253455367}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!61 &1329709891
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1329709889}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
-    newSize: {x: 1, y: 1}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.98, y: 0.95}
-  m_EdgeRadius: 0
 --- !u!212 &1329709892
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -3561,7 +3497,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1353608012}
   - component: {fileID: 1353608014}
-  - component: {fileID: 1353608013}
   m_Layer: 7
   m_Name: CombinationStation1
   m_TagString: Untagged
@@ -3584,51 +3519,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 253455367}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!61 &1353608013
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1353608011}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
-    newSize: {x: 1, y: 1}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.98, y: 0.95}
-  m_EdgeRadius: 0
 --- !u!212 &1353608014
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -3952,7 +3842,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1415352977}
   - component: {fileID: 1415352976}
-  - component: {fileID: 1415352975}
   - component: {fileID: 1415352974}
   - component: {fileID: 1415352973}
   - component: {fileID: 1415352972}
@@ -4035,23 +3924,6 @@ MonoBehaviour:
   tagPenalties: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
   graphMask:
     value: -1
---- !u!114 &1415352975
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1415352971}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3f3d96151bea4aa4290bf9d4ed20713d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveSpeed: 7
-  gridSize: 1
-  obstacleLayer:
-    serializedVersion: 2
-    m_Bits: 128
 --- !u!212 &1415352976
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -4647,7 +4519,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1653822764}
   - component: {fileID: 1653822763}
-  - component: {fileID: 1653822762}
   - component: {fileID: 1653822761}
   - component: {fileID: 1653822760}
   - component: {fileID: 1653822759}
@@ -4747,23 +4618,6 @@ MonoBehaviour:
   tagPenalties: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
   graphMask:
     value: -1
---- !u!114 &1653822762
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1653822757}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3f3d96151bea4aa4290bf9d4ed20713d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveSpeed: 5
-  gridSize: 1
-  obstacleLayer:
-    serializedVersion: 2
-    m_Bits: 128
 --- !u!212 &1653822763
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -5056,7 +4910,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1700626996}
   - component: {fileID: 1700626995}
-  - component: {fileID: 1700626994}
   - component: {fileID: 1700626993}
   - component: {fileID: 1700626992}
   - component: {fileID: 1700626991}
@@ -5139,23 +4992,6 @@ MonoBehaviour:
   tagPenalties: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
   graphMask:
     value: -1
---- !u!114 &1700626994
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1700626990}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3f3d96151bea4aa4290bf9d4ed20713d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveSpeed: 8
-  gridSize: 1
-  obstacleLayer:
-    serializedVersion: 2
-    m_Bits: 128
 --- !u!212 &1700626995
 SpriteRenderer:
   m_ObjectHideFlags: 0
