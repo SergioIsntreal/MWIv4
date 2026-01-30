@@ -19,6 +19,8 @@ public class BistroManager : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
+            if (Customer.IsDragging) return;
+
             // Everything below is for my waypoints
             RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
 
