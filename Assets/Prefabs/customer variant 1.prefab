@@ -14,7 +14,6 @@ GameObject:
   - component: {fileID: 8470928050512550539}
   - component: {fileID: 5506861349784008250}
   - component: {fileID: 3170909362616829667}
-  - component: {fileID: -1951495020681716272}
   - component: {fileID: -1863626049454706884}
   - component: {fileID: 4872228388617336216}
   m_Layer: 0
@@ -180,23 +179,6 @@ MonoBehaviour:
   targetCompatibility: {fileID: 0}
   repathRateCompatibility: NaN
   canSearchCompability: 0
---- !u!114 &-1951495020681716272
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4530613384916046507}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3f3d96151bea4aa4290bf9d4ed20713d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveSpeed: 5
-  gridSize: 1
-  obstacleLayer:
-    serializedVersion: 2
-    m_Bits: 128
 --- !u!61 &-1863626049454706884
 BoxCollider2D:
   m_ObjectHideFlags: 0
