@@ -6,37 +6,26 @@ using System.Linq;
 
 public class BistroManager : MonoBehaviour
 {
-    // Manages the movement queue
     public List<Employee> allCharacters = new List<Employee>();
-    public Transform selectionCircle; // Drag your SelectionCircle object here
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.F1))
-        {
-            ForceResetRound();
-        }
-
         if (Input.GetMouseButtonDown(0))
         {
             if (Customer.IsDragging) return;
 
-            // Everything below is for my waypoints
             RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
 
             if (hit.collider != null)
             {
                 InteractableObject obj = hit.collider.GetComponent<InteractableObject>();
-
                 if (obj != null)
                 {
-                    // We clicked a table! Use its waypoint!
                     HandleClick(obj.GetWalkToPoint(), obj);
-                    return; // Exit so we don't process it as a floor click
+                    return;
                 }
             }
 
-            // If we didn't hit an object, proceed with a normal floor click
             Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             HandleClick(mouseWorldPos, null);
         }
@@ -48,68 +37,58 @@ public class BistroManager : MonoBehaviour
 
         if (bestCandidate != null)
         {
-            // Use the centering logic from earlier
             float gridSize = 1.0f;
             float x = Mathf.Floor(worldPos.x / gridSize) * gridSize + (gridSize / 2f);
             float y = Mathf.Floor(worldPos.y / gridSize) * gridSize + (gridSize / 2f);
             Vector3 finalPos = new Vector3(x, y, 0);
 
-            // Should send the employee
+            // Set this BEFORE calling GoTo to ensure the selection circle moves immediately
             bestCandidate.hasMovedThisRound = true;
             bestCandidate.GoTo(finalPos, obj);
         }
         else
         {
-            Debug.Log("Everyone is busy or has already moved!");
+            Debug.Log("Everyone has already moved this round!");
         }
     }
 
     Employee GetNextAvailableEmployee()
     {
-        var eligible = allCharacters.Where(c => !c.IsBusy() && !c.hasMovedThisRound).ToList();
-
-        // If everyone has moved, reset the 'round' so they can move again
-        if (eligible.Count == 0 && !allCharacters.Any(c => c.IsBusy()))
-        {
-            foreach (var c in allCharacters) c.hasMovedThisRound = false;
-            eligible = allCharacters.Where(c => !c.IsBusy()).ToList();
-        }
-
-        return eligible
+        // 1. First, try to find someone who hasn't moved yet AND isn't busy.
+        // This maintains the 1-2-3-4 order.
+        var nextInQueue = allCharacters
+            .Where(c => !c.hasMovedThisRound && !c.IsBusy())
             .OrderByDescending(c => c.moveSpeedStat)
             .ThenBy(c => c.priorityOrder)
             .FirstOrDefault();
-    }
 
-    public void ForceResetRound()
-    {
-        Debug.Log("Manually resetting all employees.");
-        foreach (var c in allCharacters)
+        // 2. If everyone has 'hasMovedThisRound = true', check if we can reset the round.
+        if (nextInQueue == null)
         {
-            c.StopMoving(); // Tell employees to stop
-            c.hasMovedThisRound = false;
-        }
-    }
+            // We only allow a reset if the FIRST person in the priority chain is no longer busy.
+            // This prevents the "target switching" bug because the busy person isn't eligible yet.
+            bool canResetRound = allCharacters.Any(c => !c.IsBusy());
 
-    void UpdateSelectionCircle()
-    {
-        Employee nextWinner = GetNextAvailableEmployee();
+            if (canResetRound)
+            {
+                // Reset 'hasMovedThisRound' ONLY for employees who are actually standing still.
+                foreach (var c in allCharacters)
+                {
+                    if (!c.IsBusy())
+                    {
+                        c.hasMovedThisRound = false;
+                    }
+                }
 
-        if (nextWinner != null && selectionCircle != null)
-        {
-            selectionCircle.gameObject.SetActive(true);
-            selectionCircle.position = nextWinner.transform.position;
+                // Try the search again now that we've freed up the idle employees.
+                nextInQueue = allCharacters
+                    .Where(c => !c.hasMovedThisRound && !c.IsBusy())
+                    .OrderByDescending(c => c.moveSpeedStat)
+                    .ThenBy(c => c.priorityOrder)
+                    .FirstOrDefault();
+            }
         }
-        else if (selectionCircle != null)
-        {
-            // Hide if literally everyone is busy/moved
-            selectionCircle.gameObject.SetActive(false);
-        }
-    }
 
-    void LateUpdate() //This ensures the circle follows smoothly
-    {
-        UpdateSelectionCircle();
+        return nextInQueue;
     }
-    
 }

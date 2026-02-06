@@ -15,6 +15,7 @@ public class Customer : MonoBehaviour
     private AILerp aiLerp;
     private AIDestinationSetter destSetter;
     private GameObject myTarget;
+    private TableStation assignedTable;
 
     void Awake()
     {
@@ -93,35 +94,35 @@ public class Customer : MonoBehaviour
 
     public void SeatAtTable(TableStation table)
     {
-        // 1. Occupy Table
+        assignedTable = table;
+
+        // Teleport to seat anchor
+        Vector3 seatPos = table.GetSeatPosition();
+        transform.position = seatPos;
+
+        // Keep the AI target in the same spot just in case
+        myTarget.transform.position = seatPos;
+
+        // Occupy Table
         table.isOccupied = true;
         table.currentCustomer = this;
         currentState = CustomerState.Seated;
 
-        // 2. Visuals & Layer
+        // Visuals & Layer
         this.gameObject.layer = LayerMask.NameToLayer("SeatedCustomer");
 
-        // 3. Reset and Restart Patience for the "Waiting for Order" phase
+        // Reset and Restart Patience for the "Waiting for Order" phase
         CustomerPatience patience = GetComponent<CustomerPatience>();
-        patience.ResetPatience();
-        patience.enabled = true;
-
-        // 4. Update Bubble (Let's assume you have a 'Thinking' sprite)
-        // You can add a specific sprite for "Ready to Order"
-        Debug.Log("Customer seated and waiting for a waiter.");
-
-        table.MarkForOrder();
-    }
-
-    void ReturnToWaitingSeat()
-    {
-        currentState = CustomerState.Waiting;
-        if (aiLerp != null)
+        if (patience != null)
         {
-            aiLerp.canMove = true;
-            // The target is already set to the waiting chair from MoveToWaitingArea()
-            aiLerp.SearchPath();
+            patience.ResetPatience();
+            patience.enabled = true;
         }
+
+        // Notify Table
+        table.MarkForOrder();
+
+        Debug.Log($"Customer snapped to table at {seatPos}");
     }
 
     public void LeaveBistro()
@@ -135,14 +136,11 @@ public class Customer : MonoBehaviour
 
         // 2. If they were at a table, free that up too
         // (We'll need to find which table they were at)
-        TableStation[] tables = FindObjectsByType<TableStation>(FindObjectsSortMode.None);
-        foreach (var t in tables)
+        if (assignedTable != null)
         {
-            if (t.currentCustomer == this)
-            {
-                t.isOccupied = false;
-                t.currentCustomer = null;
-            }
+            assignedTable.isOccupied = false;
+            assignedTable.currentCustomer = null;
+            assignedTable = null;
         }
 
         // 3. Re-enable AI
@@ -200,7 +198,7 @@ public class Customer : MonoBehaviour
     {
         if (currentState == CustomerState.Dragged)
         {
-            IsDragging = false; // Release the lock
+            IsDragging = false;
 
             // Create a LayerMask for your "Stations" layer (assuming Tables are on Layer 7)
             int stationLayerMask = LayerMask.GetMask("Stations");
@@ -216,21 +214,39 @@ public class Customer : MonoBehaviour
                 if (table != null && !table.isOccupied)
                 {
                     SeatAtTable(table);
-                    return; // Exit so we don't trigger the "Return to Chair" logic
+                    GetComponent<CustomerPatience>().UpdateOriginalPosition();
                 }
-                else if (table != null && table.isOccupied)
+                else
                 {
-                    Debug.Log("Table taken! Snapping back to waiting seat.");
-
-                    if (currentSlot != null)
-                    {
-                        // This is the "Snap" - no walking, just teleporting
-                        transform.position = currentSlot.position;
-
-                        // Re-enable AI if you want them to look 'active' while sitting
-                        if (aiLerp != null) aiLerp.enabled = true;
-                    }
+                    SnapBackToWaitingSeat();
                 }
+            }
+            else
+            {
+                SnapBackToWaitingSeat();
+            }
+        }
+    }
+
+    void SnapBackToWaitingSeat()
+    {
+        if (currentSlot != null)
+        {
+            Debug.Log("No valid table found. Snapping back to waiting seat.");
+
+            // Teleport back to the waiting chair
+            transform.position = currentSlot.position;
+
+            // Update the AI target so they don't try to walk back to where you dropped them
+            myTarget.transform.position = currentSlot.position;
+
+            currentState = CustomerState.Waiting;
+
+            // Re-enable AI
+            if (aiLerp != null)
+            {
+                aiLerp.enabled = true;
+                aiLerp.canMove = true;
             }
         }
     }

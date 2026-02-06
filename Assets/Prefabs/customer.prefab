@@ -116,12 +116,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c0194effd73aa946aea4c6ac073ffca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  customerRenderer: {fileID: 0}
   bubbleObject: {fileID: 6822931741251064367, guid: c575b44ee98d48b468caa42997913a03, type: 3}
   bubbleRenderer: {fileID: 6921262445849898943, guid: 80161156b3885064080231a141e11325, type: 3}
   happyBubble: {fileID: 21300000, guid: e78e0685ad689a343829f37d135229dd, type: 3}
   angryBubble: {fileID: 21300000, guid: 62eccbceb993aad4487ea1bf0cdef378, type: 3}
+  soupSprite: {fileID: 21300000, guid: 29b40cb01c8f0d84a906a82cde72a63e, type: 3}
+  burgerSprite: {fileID: 21300000, guid: c0ec0beca8d1d0b449e050a0b6f1cd37, type: 3}
+  saladSprite: {fileID: 21300000, guid: 4ce688283c0262b4db0e274a1f27a5a0, type: 3}
+  icecreamSprite: {fileID: 21300000, guid: 39c94c34961badc4e869ae42d16d861b, type: 3}
   maxPatience: 20
   baseScale: 0.5
+  maxShakeIntensity: 0.2
 --- !u!114 &8730993171514944027
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -305,6 +311,10 @@ PrefabInstance:
     - target: {fileID: 6822931741251064367, guid: c575b44ee98d48b468caa42997913a03, type: 3}
       propertyPath: m_Name
       value: TestCircle
+      objectReference: {fileID: 0}
+    - target: {fileID: 6822931741251064367, guid: c575b44ee98d48b468caa42997913a03, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

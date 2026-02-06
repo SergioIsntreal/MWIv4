@@ -12,6 +12,7 @@ public class Employee : MonoBehaviour
 
     //This variable tracks turns
     [HideInInspector] public bool hasMovedThisRound = false;
+    [HideInInspector] public bool turnActionCommanded = false;
 
     private AILerp aiLerp;
     public string[] menu = { "Soup", "Burger", "Salad", "Ice Cream" };
@@ -58,8 +59,9 @@ public class Employee : MonoBehaviour
         isMoving = true;
         movementTimer = 0f; // Reset timer when a new command starts
 
-        aiLerp.canMove = true;
+        turnActionCommanded = true;
 
+        aiLerp.canMove = true;
         currentTaskObject = obj; // This stores the table/station info
         myInternalTarget.transform.position = position;
         aiLerp.SearchPath();
@@ -69,7 +71,8 @@ public class Employee : MonoBehaviour
 
     public void GoToTable(TableStation table)
     {
-        StopAllCoroutines(); // Cancel previous tasks
+        turnActionCommanded = true; // Allow the next employee to be selected immediately
+        StopAllCoroutines();
         StartCoroutine(TakeOrderRoutine(table));
     }
 
@@ -106,17 +109,23 @@ public class Employee : MonoBehaviour
     {
         HandleFlipping();
 
-        // Check if arrived at the task
+        // CASE 1: Arrived at an Interactable Object (Table/Station)
         if (currentTaskObject != null && !isWorking && aiLerp.reachedEndOfPath)
         {
             StartWorking();
         }
 
+        // CASE 2: Arrived at a general floor position (No task)
+        // We check if they are moving but have reached the end of the path
+        else if (isMoving && aiLerp.reachedEndOfPath && !isWorking)
+        {
+            StopMoving();
+        }
+
+        // Timer for getting stuck
         if (isMoving)
         {
             movementTimer += Time.deltaTime;
-
-            // If they take too long, force stop
             if (movementTimer >= movementTimeout)
             {
                 Debug.LogWarning(gameObject.name + " got stuck! Timing out.");
@@ -125,12 +134,14 @@ public class Employee : MonoBehaviour
             }
         }
 
+        // Task progression
         if (isWorking)
         {
             taskTimer += Time.deltaTime;
             if (taskTimer >= currentTaskObject.timeToComplete)
             {
                 FinishWorking();
+                StopMoving(); // Ensure flags are cleared and snapping happens after task
             }
         }
     }
@@ -140,7 +151,6 @@ public class Employee : MonoBehaviour
         isMoving = false;
         isWorking = false; // Ensure they aren't stuck in a work state
         movementTimer = 0f;
-        hasMovedThisRound = true;
 
         // 1. Completely disable the A* components to stop all background math
         if (aiLerp != null)
@@ -200,5 +210,12 @@ public class Employee : MonoBehaviour
                 spriteRenderer.flipX = false; // Faces right
             }
         }
+    }
+
+    // Reset this in whatever method starts a new round
+    public void ResetForNewRound()
+    {
+        hasMovedThisRound = false;
+        turnActionCommanded = false;
     }
 }
