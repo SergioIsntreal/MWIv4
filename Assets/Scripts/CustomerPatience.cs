@@ -15,6 +15,12 @@ public class CustomerPatience : MonoBehaviour
     private float currentPatience;
     private Customer customerScript;
 
+    [Header("Food Visuals")]
+    public Sprite soupSprite;
+    public Sprite burgerSprite;
+    public Sprite saladSprite;
+    public Sprite icecreamSprite;
+
     [Header("Visual Tweaks")]
     public float baseScale = 0.5f; // Set this to the size that looked "correct" in your inspector
 
@@ -67,6 +73,35 @@ public class CustomerPatience : MonoBehaviour
                 this.enabled = false;
             }
         }
+    }
+
+    public void SetOrderVisual(string foodName)
+    {
+        // 1. Stop the bubble from pulsing/changing colors if you want it static
+        // (Or keep it pulsing if they are still impatient for food!)
+
+        // 2. Map the string name to the correct sprite
+        switch (foodName)
+        {
+            case "Soup":
+                bubbleRenderer.sprite = soupSprite;
+                break;
+            case "Burger":
+                bubbleRenderer.sprite = burgerSprite;
+                break;
+            case "Salad":
+                bubbleRenderer.sprite = saladSprite;
+                break;
+            case "Ice Cream":
+                bubbleRenderer.sprite = icecreamSprite;
+                break;
+            default:
+                Debug.LogWarning("Food sprite not found for: " + foodName);
+                break;
+        }
+
+        // 3. Ensure the bubble is visible
+        bubbleObject.SetActive(true);
     }
 
     void UpdateBubbleVisuals()

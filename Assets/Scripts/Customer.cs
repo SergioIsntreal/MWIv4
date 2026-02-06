@@ -93,60 +93,24 @@ public class Customer : MonoBehaviour
 
     public void SeatAtTable(TableStation table)
     {
-        currentState = CustomerState.Seated;
-        this.gameObject.layer = LayerMask.NameToLayer("SeatedCustomer");
-
-        // Release the waiting chair so someone else can sit there
-        if (currentSlot != null)
-        {
-            WaitingAreaManager.Instance.ReleaseSlot(currentSlot);
-        }
-
-        // Magnetically snap to the table's seat anchor
-        transform.position = table.GetSeatPosition();
+        // 1. Occupy Table
         table.isOccupied = true;
         table.currentCustomer = this;
+        currentState = CustomerState.Seated;
 
-        // Disable AI so they don't try to walk away
-        if (aiLerp != null)
-        {
-            aiLerp.canMove = false;
-            aiLerp.enabled = false; // Turn off the script entirely
-        }
+        // 2. Visuals & Layer
+        this.gameObject.layer = LayerMask.NameToLayer("SeatedCustomer");
 
-        if (destSetter != null)
-        {
-            destSetter.enabled = false; // Stop it from following the Target object
-        }
+        // 3. Reset and Restart Patience for the "Waiting for Order" phase
+        CustomerPatience patience = GetComponent<CustomerPatience>();
+        patience.ResetPatience();
+        patience.enabled = true;
 
-        // 3. (Optional) Stop the Target object from moving
-        // If your GridMovement script updates myTarget.position, 
-        // we want to make sure it's not being updated anymore.
+        // 4. Update Bubble (Let's assume you have a 'Thinking' sprite)
+        // You can add a specific sprite for "Ready to Order"
+        Debug.Log("Customer seated and waiting for a waiter.");
 
-        Debug.Log("Customer is ready to order!");
-        // Trigger the "Order Bubble" logic here next!
-
-        // ---To Avoid Dragging Once Sitting---
-        // 1. Change the Layer so the BistroManager's Raycast ignores them
-        gameObject.layer = LayerMask.NameToLayer("SeatedCustomer");
-
-        // 2. Adjust the Collider (Two options here)
-        Collider2D col = GetComponent<Collider2D>();
-        if (col != null)
-        {
-            // Option A: Make the collider smaller so they are harder to misclick
-            // (Assuming you have a BoxCollider2D)
-            if (col is BoxCollider2D box)
-            {
-                box.size = new Vector2(0.2f, 0.2f);
-            }
-
-            // Option B: Or just disable the collider entirely if you don't need to
-            // click them again until they are finished eating.
-            // col.enabled = false; 
-        }
-
-        GetComponent<CustomerPatience>().ResetPatience();
+        table.MarkForOrder();
     }
 
     void ReturnToWaitingSeat()
@@ -254,10 +218,20 @@ public class Customer : MonoBehaviour
                     SeatAtTable(table);
                     return; // Exit so we don't trigger the "Return to Chair" logic
                 }
-            }
+                else if (table != null && table.isOccupied)
+                {
+                    Debug.Log("Table taken! Snapping back to waiting seat.");
 
-            // 3. If we didn't hit a valid table, go back to the waiting chair
-            ReturnToWaitingSeat();
+                    if (currentSlot != null)
+                    {
+                        // This is the "Snap" - no walking, just teleporting
+                        transform.position = currentSlot.position;
+
+                        // Re-enable AI if you want them to look 'active' while sitting
+                        if (aiLerp != null) aiLerp.enabled = true;
+                    }
+                }
+            }
         }
     }
 }

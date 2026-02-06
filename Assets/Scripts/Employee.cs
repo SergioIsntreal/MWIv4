@@ -14,6 +14,7 @@ public class Employee : MonoBehaviour
     [HideInInspector] public bool hasMovedThisRound = false;
 
     private AILerp aiLerp;
+    public string[] menu = { "Soup", "Burger", "Salad", "Ice Cream" };
     private AIDestinationSetter destSetter;
     private GameObject myInternalTarget; // Individual to each employee
 
@@ -41,7 +42,6 @@ public class Employee : MonoBehaviour
 
         // Start at current position so they don't run away at start
         myInternalTarget.transform.position = transform.position;
-
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
@@ -65,6 +65,41 @@ public class Employee : MonoBehaviour
         aiLerp.SearchPath();
         
         isWorking = false;
+    }
+
+    public void GoToTable(TableStation table)
+    {
+        StopAllCoroutines(); // Cancel previous tasks
+        StartCoroutine(TakeOrderRoutine(table));
+    }
+
+    private IEnumerator TakeOrderRoutine(TableStation table)
+    {
+        // 1. Move to the table
+        myInternalTarget.transform.position = table.transform.position;
+
+        // 2. Wait until we are close enough
+        while (Vector3.Distance(transform.position, table.transform.position) > 0.6f)
+        {
+            yield return null;
+        }
+
+        // 3. Take the Order
+        if (table.needsOrder)
+        {
+            string choice = menu[Random.Range(0, menu.Length)];
+            table.currentOrder = choice;
+            table.needsOrder = false;
+
+            Debug.Log($"Employee took order: {choice}");
+
+            // Tell the customer to change state to 'WaitingForFood'
+            table.currentCustomer.currentState = Customer.CustomerState.Eating; // Or a new 'WaitingForFood' state
+
+            // 4. Update the Customer's bubble to show the FOOD they want
+            // You'll need a way to map the string 'choice' to a sprite
+            table.currentCustomer.GetComponent<CustomerPatience>().SetOrderVisual(choice);
+        }
     }
 
     void Update()
