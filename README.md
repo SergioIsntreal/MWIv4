@@ -47,3 +47,9 @@ I'll probably only document game-breaking bugs from here on out.
 - The delay between the Round Reset is noticable
 - CombinationStations lose their 'Obstacle' status when clicked on
 - FoodStation Waypoints aren't working; Employees still tru to travel to the centre of the Collider (may need to move that actually)
+- 
+## DL3 (31/01/26) Continuing From Yesterday
+
+**Notes:**
+- [FIXED] Combination Stations **require** a BoxCollider2D to register as an Obstacle
+- Added a PiggyBank and Money Counter (no functionality just yet)
