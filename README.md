@@ -47,9 +47,22 @@ I'll probably only document game-breaking bugs from here on out.
 - The delay between the Round Reset is noticable
 - CombinationStations lose their 'Obstacle' status when clicked on
 - FoodStation Waypoints aren't working; Employees still tru to travel to the centre of the Collider (may need to move that actually)
-- 
+  
 ## DL3 (31/01/26) Continuing From Yesterday
 
 **Notes:**
 - [FIXED] Combination Stations **require** a BoxCollider2D to register as an Obstacle
 - Added a PiggyBank and Money Counter (no functionality just yet)
+
+## DL4 (06/02/26) Troubleshooting
+
+**Current Bugs I want to fix before proceeding:**
+- I want to disable the bubble that appears above their head when they're waiting, and instead have a clock icon that appears next to them when they have 1/3 patience left, the icon pulsing slightly
+- Employees can walk off the grid/designated area
+
+**Progress Notes:**
+- Customers now snap to the centre of the table and teleport back to the chair if they aren't dragged to an empty table
+- Rounds have been swapped with a Queue, which makes the transition a bit more seamless with the employee movement turn order
+- The Customers now turn red and vibrate when their patience is depleting (which has spawned its own bugs)
+
+I'm going to call it quits for now; I don't have the braincells to understand the code, and I've stopped trying to. AI can only understand so much, even with constant snapshots of the code. In all honesty, I wish I didn't have to bother with this. I don't want to ask for help and I'm damn near tempted to let it all slip between my fingers like sand. Doesn't want to do anything artistic, doesn't want to do any problem solving, what am I honestly good for?
