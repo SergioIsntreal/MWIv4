@@ -48,6 +48,12 @@ public class Employee : MonoBehaviour
 
     public void GoTo(Vector3 position, InteractableObject obj = null)
     {
+        if (isWorking)
+        {
+            Debug.Log(characterName + " is busy cooking and ignored your click!");
+            return;
+        }
+
         // Wake up the AI
         if (aiLerp != null)
         {
@@ -135,13 +141,15 @@ public class Employee : MonoBehaviour
         }
 
         // Task progression
-        if (isWorking)
+        if (isWorking && currentTaskObject != null)
         {
             taskTimer += Time.deltaTime;
+
             if (taskTimer >= currentTaskObject.timeToComplete)
             {
+                // Order matters here: Finish the logic, then clean up movement
                 FinishWorking();
-                StopMoving(); // Ensure flags are cleared and snapping happens after task
+                StopMoving();
             }
         }
     }
@@ -174,19 +182,37 @@ public class Employee : MonoBehaviour
 
     void StartWorking()
     {
-        isWorking = true;
-        taskTimer = 0;
-        Debug.Log(characterName + " is now working...");
+        // 1. Ask the object if we are allowed to interact
+        if (currentTaskObject.StartInteraction())
+        {
+            // 2. If the object says "Yes", start the timer
+            isWorking = true;
+            taskTimer = 0;
+
+            if (aiLerp != null) aiLerp.canMove = false;
+            Debug.Log(characterName + " is officially working.");
+        }
+        else
+        {
+            // 3. If the object says "No", clear the task and stop
+            currentTaskObject = null;
+            StopMoving();
+        }
     }
 
     void FinishWorking()
     {
         isWorking = false;
         isMoving = false;
+
+        // Trigger the actual logic on the station/table/till
+        if (currentTaskObject != null)
+        {
+            currentTaskObject.CompleteInteraction();
+        }
+
         currentTaskObject = null;
         Debug.Log(characterName + " finished the task!");
-
-        // They should be made to stand still or return to idle once completed
     }
 
     public bool IsBusy()
@@ -210,12 +236,5 @@ public class Employee : MonoBehaviour
                 spriteRenderer.flipX = false; // Faces right
             }
         }
-    }
-
-    // Reset this in whatever method starts a new round
-    public void ResetForNewRound()
-    {
-        hasMovedThisRound = false;
-        turnActionCommanded = false;
     }
 }

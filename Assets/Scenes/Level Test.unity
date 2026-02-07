@@ -987,6 +987,7 @@ GameObject:
   - component: {fileID: 247535399}
   - component: {fileID: 247535398}
   - component: {fileID: 247535400}
+  - component: {fileID: 247535401}
   m_Layer: 0
   m_Name: FoodStation(5)
   m_TagString: Untagged
@@ -1008,6 +1009,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1112561854}
+  - {fileID: 1107897639}
   m_Father: {fileID: 182337486}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &247535398
@@ -1122,6 +1124,22 @@ MonoBehaviour:
   type: 1
   timeToComplete: 10
   waypoint: {fileID: 1112561854}
+--- !u!114 &247535401
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 247535396}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66ef99ce54f473243a0d05c6d20beebb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  foodName: Pastry
+  foodPrefab: {fileID: 0}
+  spawnPoint: {fileID: 1107897639}
+  hasFoodReady: 0
 --- !u!1 &252047859
 GameObject:
   m_ObjectHideFlags: 0
@@ -2058,6 +2076,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 527711679}
   m_CullTransparentMesh: 1
+--- !u!1 &548639049
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 548639050}
+  m_Layer: 0
+  m_Name: FoodSpawnpoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 7866945982896999795, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &548639050
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 548639049}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1080444870}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &572638145
 GameObject:
   m_ObjectHideFlags: 0
@@ -2477,6 +2526,37 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &755836567
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 755836568}
+  m_Layer: 0
+  m_Name: FoodSpawnpoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 7866945982896999795, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &755836568
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 755836567}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1367830634}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &788278972 stripped
 Transform:
@@ -3128,6 +3208,7 @@ GameObject:
   - component: {fileID: 1039982550}
   - component: {fileID: 1039982549}
   - component: {fileID: 1039982551}
+  - component: {fileID: 1039982552}
   m_Layer: 0
   m_Name: FoodStation(3)
   m_TagString: Untagged
@@ -3149,6 +3230,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 938380103}
+  - {fileID: 1365568918}
   m_Father: {fileID: 182337486}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &1039982549
@@ -3263,6 +3345,22 @@ MonoBehaviour:
   type: 1
   timeToComplete: 10
   waypoint: {fileID: 938380103}
+--- !u!114 &1039982552
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1039982547}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66ef99ce54f473243a0d05c6d20beebb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  foodName: Ice Cream
+  foodPrefab: {fileID: 7350670027118691689, guid: ffab181c0a0405e429e570247cf38a80, type: 3}
+  spawnPoint: {fileID: 1365568918}
+  hasFoodReady: 0
 --- !u!1001 &1058506240
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3352,6 +3450,7 @@ GameObject:
   - component: {fileID: 1080444872}
   - component: {fileID: 1080444871}
   - component: {fileID: 1080444873}
+  - component: {fileID: 1080444874}
   m_Layer: 0
   m_Name: FoodStation(6)
   m_TagString: Untagged
@@ -3373,6 +3472,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 948807186}
+  - {fileID: 548639050}
   m_Father: {fileID: 182337486}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &1080444871
@@ -3487,6 +3587,53 @@ MonoBehaviour:
   type: 1
   timeToComplete: 10
   waypoint: {fileID: 948807186}
+--- !u!114 &1080444874
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1080444869}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66ef99ce54f473243a0d05c6d20beebb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  foodName: Sandwich
+  foodPrefab: {fileID: 0}
+  spawnPoint: {fileID: 548639050}
+  hasFoodReady: 0
+--- !u!1 &1107897638
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1107897639}
+  m_Layer: 0
+  m_Name: FoodSpawnpoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 7866945982896999795, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1107897639
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1107897638}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 247535397}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1108256377 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 438439355865929124, guid: 4287975ce65677f4b8d5ca81a73fab33, type: 3}
@@ -3738,6 +3885,7 @@ GameObject:
   - component: {fileID: 1227401522}
   - component: {fileID: 1227401521}
   - component: {fileID: 1227401523}
+  - component: {fileID: 1227401524}
   m_Layer: 0
   m_Name: FoodStation(1)
   m_TagString: Untagged
@@ -3759,6 +3907,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 584267722}
+  - {fileID: 1711962047}
   m_Father: {fileID: 182337486}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &1227401521
@@ -3873,6 +4022,22 @@ MonoBehaviour:
   type: 1
   timeToComplete: 10
   waypoint: {fileID: 584267722}
+--- !u!114 &1227401524
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1227401519}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66ef99ce54f473243a0d05c6d20beebb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  foodName: Burger
+  foodPrefab: {fileID: 2078390141572967437, guid: 9358548982f5baf4587a1fc5d84e8749, type: 3}
+  spawnPoint: {fileID: 1711962047}
+  hasFoodReady: 0
 --- !u!1001 &1287513907
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4168,6 +4333,7 @@ GameObject:
   - component: {fileID: 1339490249}
   - component: {fileID: 1339490248}
   - component: {fileID: 1339490250}
+  - component: {fileID: 1339490251}
   m_Layer: 0
   m_Name: FoodStation(2)
   m_TagString: Untagged
@@ -4189,6 +4355,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1644568197}
+  - {fileID: 1835079466}
   m_Father: {fileID: 182337486}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &1339490248
@@ -4303,6 +4470,22 @@ MonoBehaviour:
   type: 1
   timeToComplete: 10
   waypoint: {fileID: 1644568197}
+--- !u!114 &1339490251
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1339490246}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66ef99ce54f473243a0d05c6d20beebb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  foodName: Salad
+  foodPrefab: {fileID: 739817324064505592, guid: 4887e36936d1b0f4abc6095081c39555, type: 3}
+  spawnPoint: {fileID: 1835079466}
+  hasFoodReady: 0
 --- !u!1 &1353608011
 GameObject:
   m_ObjectHideFlags: 0
@@ -4433,6 +4616,37 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!1 &1359170025
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1359170026}
+  m_Layer: 0
+  m_Name: FoodSpawnpoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 7866945982896999795, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1359170026
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1359170025}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1653556997}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1363032767
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4510,6 +4724,37 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 746f6145f602f4240b899a4797a76f08, type: 3}
+--- !u!1 &1365568917
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1365568918}
+  m_Layer: 0
+  m_Name: FoodSpawnpoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 7866945982896999795, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1365568918
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1365568917}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1039982548}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1367830633
 GameObject:
   m_ObjectHideFlags: 0
@@ -4522,6 +4767,7 @@ GameObject:
   - component: {fileID: 1367830636}
   - component: {fileID: 1367830635}
   - component: {fileID: 1367830637}
+  - component: {fileID: 1367830638}
   m_Layer: 0
   m_Name: FoodStation(0)
   m_TagString: Untagged
@@ -4543,6 +4789,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1298037535}
+  - {fileID: 755836568}
   m_Father: {fileID: 182337486}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &1367830635
@@ -4657,6 +4904,22 @@ MonoBehaviour:
   type: 1
   timeToComplete: 10
   waypoint: {fileID: 1298037535}
+--- !u!114 &1367830638
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1367830633}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66ef99ce54f473243a0d05c6d20beebb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  foodName: Soup
+  foodPrefab: {fileID: 2938604830852674751, guid: 0e7dca0a392604643b8b1575004d52bd, type: 3}
+  spawnPoint: {fileID: 755836568}
+  hasFoodReady: 0
 --- !u!4 &1371134244 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 438439355865929124, guid: 4287975ce65677f4b8d5ca81a73fab33, type: 3}
@@ -5442,6 +5705,7 @@ GameObject:
   - component: {fileID: 1653556999}
   - component: {fileID: 1653556998}
   - component: {fileID: 1653557000}
+  - component: {fileID: 1653557001}
   m_Layer: 0
   m_Name: FoodStation(4)
   m_TagString: Untagged
@@ -5463,6 +5727,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1936953896}
+  - {fileID: 1359170026}
   m_Father: {fileID: 182337486}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &1653556998
@@ -5577,6 +5842,22 @@ MonoBehaviour:
   type: 1
   timeToComplete: 10
   waypoint: {fileID: 1936953896}
+--- !u!114 &1653557001
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1653556996}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66ef99ce54f473243a0d05c6d20beebb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  foodName: Steak
+  foodPrefab: {fileID: 0}
+  spawnPoint: {fileID: 1359170026}
+  hasFoodReady: 0
 --- !u!1 &1653822757
 GameObject:
   m_ObjectHideFlags: 0
@@ -6156,6 +6437,37 @@ MonoBehaviour:
   - Salad
   - Ice Cream
   movementTimeout: 5
+--- !u!1 &1711962046
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1711962047}
+  m_Layer: 0
+  m_Name: FoodSpawnpoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 7866945982896999795, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1711962047
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1711962046}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1227401520}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1769981065
 GameObject:
   m_ObjectHideFlags: 0
@@ -6357,6 +6669,37 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &1835079465
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1835079466}
+  m_Layer: 0
+  m_Name: FoodSpawnpoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 7866945982896999795, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1835079466
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1835079465}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1339490247}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1851528639
 PrefabInstance:
   m_ObjectHideFlags: 0
