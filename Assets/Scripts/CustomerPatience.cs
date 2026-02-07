@@ -48,6 +48,13 @@ public class CustomerPatience : MonoBehaviour
 
     void Update()
     {
+        if (customerScript.currentState == Customer.CustomerState.Leaving)
+        {
+            bubbleObject.SetActive(false); // Hide the bubble
+            customerRenderer.color = Color.white; // Reset color
+            return; // Exit the function early so we don't override the position
+        }
+
         UpdateBubbleVisibility();
 
         // Only process patience if Waiting or Seated
@@ -73,6 +80,8 @@ public class CustomerPatience : MonoBehaviour
 
     void UpdateVisuals()
     {
+        if (customerScript.currentState == Customer.CustomerState.Leaving) return;
+
         // If IsDragging is true, we check if THIS object is the one moving.
         // If the position has changed since the last frame, it means we are dragging it.
         if (Customer.IsDragging)

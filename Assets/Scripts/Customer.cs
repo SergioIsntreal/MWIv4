@@ -17,8 +17,12 @@ public class Customer : MonoBehaviour
     private GameObject myTarget;
     private TableStation assignedTable;
 
+    private CursorManager cursorMgr;
+
     void Awake()
     {
+        cursorMgr = FindFirstObjectByType<CursorManager>();
+
         aiLerp = GetComponent<AILerp>();
         destSetter = GetComponent<AIDestinationSetter>();
 
@@ -148,7 +152,9 @@ public class Customer : MonoBehaviour
         {
             aiLerp.enabled = true;
             aiLerp.canMove = true;
+            aiLerp.Teleport(transform.position);
         }
+
         if (destSetter != null) destSetter.enabled = true;
 
         // 4. Change Layer back to default/Customer so they sort correctly
@@ -170,16 +176,28 @@ public class Customer : MonoBehaviour
             yield return null;
         }
         Destroy(myTarget); // Clean up the invisible target
-        Destroy(gameObject); // Bye bye!
+        Destroy(gameObject);
     }
 
     // DRAG AND DROP LOGIC
+
+    void OnMouseEnter()
+    {
+        if (!IsDragging) cursorMgr.SetHover();
+    }
+
+    void OnMouseExit()
+    {
+        if (!IsDragging) cursorMgr.SetDefault();
+    }
+
     void OnMouseDown()
     {
         if (currentState == CustomerState.Waiting || currentState == CustomerState.Entering)
         {
-            IsDragging = true; // Tell the world we are busy!
+            IsDragging = true;
             currentState = CustomerState.Dragged;
+            cursorMgr.SetGrab(); // Change to grab icon
             if (aiLerp != null) aiLerp.canMove = false;
         }
     }
@@ -226,6 +244,8 @@ public class Customer : MonoBehaviour
                 SnapBackToWaitingSeat();
             }
         }
+
+        cursorMgr.SetDefault();
     }
 
     void SnapBackToWaitingSeat()
