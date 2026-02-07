@@ -66,3 +66,11 @@ I'll probably only document game-breaking bugs from here on out.
 - The Customers now turn red and vibrate when their patience is depleting (which has spawned its own bugs)
 
 I'm going to call it quits for now; I don't have the braincells to understand the code, and I've stopped trying to. AI can only understand so much, even with constant snapshots of the code. In all honesty, I wish I didn't have to bother with this. I don't want to ask for help and I'm damn near tempted to let it all slip between my fingers like sand. Doesn't want to do anything artistic, doesn't want to do any problem solving, what am I honestly good for?
+
+## DL5 (07/02/26) Troubleshooting
+
+Let's try this again.
+
+**Exactly 4 hours later**
+
+Nah, I'm still done with this shit. I'll assume I'm inputting something incorrectly in the Inspector rather than the code, but at this point? I'm too tired for this shit. No, I don't understand what I'm copying and pasting, and yes, I miss when everything was working. It seems the more I add, the more it overcomplicates itself.
