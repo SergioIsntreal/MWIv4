@@ -12,6 +12,7 @@ public class Employee : MonoBehaviour
 
     //This variable tracks turns
     [HideInInspector] public bool hasMovedThisRound = false;
+    [HideInInspector] public bool turnActionCommanded = false;
 
     private AILerp aiLerp;
     public string[] menu = { "Soup", "Burger", "Salad", "Ice Cream" };
@@ -47,6 +48,12 @@ public class Employee : MonoBehaviour
 
     public void GoTo(Vector3 position, InteractableObject obj = null)
     {
+        if (isWorking)
+        {
+            Debug.Log(characterName + " is busy cooking and ignored your click!");
+            return;
+        }
+
         // Wake up the AI
         if (aiLerp != null)
         {
@@ -58,8 +65,9 @@ public class Employee : MonoBehaviour
         isMoving = true;
         movementTimer = 0f; // Reset timer when a new command starts
 
-        aiLerp.canMove = true;
+        turnActionCommanded = true;
 
+        aiLerp.canMove = true;
         currentTaskObject = obj; // This stores the table/station info
         myInternalTarget.transform.position = position;
         aiLerp.SearchPath();
@@ -69,7 +77,8 @@ public class Employee : MonoBehaviour
 
     public void GoToTable(TableStation table)
     {
-        StopAllCoroutines(); // Cancel previous tasks
+        turnActionCommanded = true; // Allow the next employee to be selected immediately
+        StopAllCoroutines();
         StartCoroutine(TakeOrderRoutine(table));
     }
 
@@ -106,17 +115,23 @@ public class Employee : MonoBehaviour
     {
         HandleFlipping();
 
-        // Check if arrived at the task
+        // CASE 1: Arrived at an Interactable Object (Table/Station)
         if (currentTaskObject != null && !isWorking && aiLerp.reachedEndOfPath)
         {
             StartWorking();
         }
 
+        // CASE 2: Arrived at a general floor position (No task)
+        // We check if they are moving but have reached the end of the path
+        else if (isMoving && aiLerp.reachedEndOfPath && !isWorking)
+        {
+            StopMoving();
+        }
+
+        // Timer for getting stuck
         if (isMoving)
         {
             movementTimer += Time.deltaTime;
-
-            // If they take too long, force stop
             if (movementTimer >= movementTimeout)
             {
                 Debug.LogWarning(gameObject.name + " got stuck! Timing out.");
@@ -125,12 +140,16 @@ public class Employee : MonoBehaviour
             }
         }
 
-        if (isWorking)
+        // Task progression
+        if (isWorking && currentTaskObject != null)
         {
             taskTimer += Time.deltaTime;
+
             if (taskTimer >= currentTaskObject.timeToComplete)
             {
+                // Order matters here: Finish the logic, then clean up movement
                 FinishWorking();
+                StopMoving();
             }
         }
     }
@@ -140,7 +159,6 @@ public class Employee : MonoBehaviour
         isMoving = false;
         isWorking = false; // Ensure they aren't stuck in a work state
         movementTimer = 0f;
-        hasMovedThisRound = true;
 
         // 1. Completely disable the A* components to stop all background math
         if (aiLerp != null)
@@ -164,19 +182,37 @@ public class Employee : MonoBehaviour
 
     void StartWorking()
     {
-        isWorking = true;
-        taskTimer = 0;
-        Debug.Log(characterName + " is now working...");
+        // 1. Ask the object if we are allowed to interact
+        if (currentTaskObject.StartInteraction())
+        {
+            // 2. If the object says "Yes", start the timer
+            isWorking = true;
+            taskTimer = 0;
+
+            if (aiLerp != null) aiLerp.canMove = false;
+            Debug.Log(characterName + " is officially working.");
+        }
+        else
+        {
+            // 3. If the object says "No", clear the task and stop
+            currentTaskObject = null;
+            StopMoving();
+        }
     }
 
     void FinishWorking()
     {
         isWorking = false;
         isMoving = false;
+
+        // Trigger the actual logic on the station/table/till
+        if (currentTaskObject != null)
+        {
+            currentTaskObject.CompleteInteraction();
+        }
+
         currentTaskObject = null;
         Debug.Log(characterName + " finished the task!");
-
-        // They should be made to stand still or return to idle once completed
     }
 
     public bool IsBusy()

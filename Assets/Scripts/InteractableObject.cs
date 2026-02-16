@@ -17,15 +17,37 @@ public class InteractableObject : MonoBehaviour
     // Apply to any object in which an employee will interact with
     public Transform waypoint;
 
-    public Vector3 GetWalkToPoint()
+    private FoodStation foodStation;
+    void Awake()
     {
-        return waypoint.position;
+        // Cache the food station script if this is a cooking station
+        foodStation = GetComponent<FoodStation>();
     }
 
+    public Vector3 GetWalkToPoint() => waypoint.position;
+
     // This is called when the employee finishes walking
-    public void StartInteraction()
+    public bool StartInteraction()
     {
-        Debug.Log("Starting " + type + " task. Will take " + timeToComplete + " seconds.");
-        // We will trigger the employee's timer here
+        if (type == InteractionType.MakingFood && foodStation != null)
+        {
+            if (foodStation.hasFoodReady)
+            {
+                Debug.Log("Station already has food! Cannot make more.");
+                return false; // Tell the employee "No"
+            }
+        }
+
+        Debug.Log($"Starting {type}. Takes {timeToComplete}s.");
+        return true; // Tell the employee "Yes, start your timer"
+    }
+
+    public void CompleteInteraction()
+    {
+        if (type == InteractionType.MakingFood && foodStation != null)
+        {
+            foodStation.FinishCooking();
+        }
+        // Add other completion logic for Till, Tables, etc.
     }
 }
