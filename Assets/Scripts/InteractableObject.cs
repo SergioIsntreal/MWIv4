@@ -53,6 +53,7 @@ public class InteractableObject : MonoBehaviour
 
     public void AssignWaiter(Employee waiter)
     {
+        Debug.Log($"Assigned Waiter: {waiter}");
         assignedWaiter = waiter;
     }
 

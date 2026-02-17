@@ -153,7 +153,7 @@ public class Customer : MonoBehaviour
         {
             aiLerp.enabled = true;
             aiLerp.canMove = true;
-            aiLerp.Teleport(transform.position);
+            aiLerp.Teleport(transform.position); // Note: Removed temporarily
         }
 
         if (destSetter != null) destSetter.enabled = true;

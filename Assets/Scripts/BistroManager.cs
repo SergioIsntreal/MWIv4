@@ -35,7 +35,8 @@ public class BistroManager : MonoBehaviour
     {
         Employee bestCandidate = GetNextAvailableEmployee();
 
-        if (bestCandidate != null)
+        Debug.Log($"Best Candidate = {bestCandidate}");
+        if (bestCandidate != null && obj != null)
         {
             float gridSize = 1.0f;
             float x = Mathf.Floor(worldPos.x / gridSize) * gridSize + (gridSize / 2f);
@@ -86,6 +87,7 @@ public class BistroManager : MonoBehaviour
                     .ThenBy(c => c.priorityOrder)
                     .FirstOrDefault();
             }
+            return null;
         }
 
         return nextInQueue;
