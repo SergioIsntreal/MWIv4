@@ -42,8 +42,7 @@ public class BistroManager : MonoBehaviour
             float y = Mathf.Floor(worldPos.y / gridSize) * gridSize + (gridSize / 2f);
             Vector3 finalPos = new Vector3(x, y, 0);
 
-            // Set this BEFORE calling GoTo to ensure the selection circle moves immediately
-            bestCandidate.hasMovedThisRound = true;
+            obj.AssignWaiter(bestCandidate);
             bestCandidate.GoTo(finalPos, obj);
         }
         else

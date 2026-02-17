@@ -66,6 +66,7 @@ public class CustomerPatience : MonoBehaviour
 
             if (currentPatience <= 0)
             {
+                bubbleObject.SetActive(false);
                 customerScript.LeaveBistro();
                 this.enabled = false;
             }
@@ -117,12 +118,12 @@ public class CustomerPatience : MonoBehaviour
 
     void UpdateBubbleVisibility()
     {
-        bool shouldShow = (customerScript.currentState == Customer.CustomerState.Waiting ||
-                           customerScript.currentState == Customer.CustomerState.Seated ||
-                           customerScript.currentState == Customer.CustomerState.Eating);
+        
+        bool shouldShow = (customerScript.currentState == Customer.CustomerState.Seated);
 
         if (bubbleObject.activeSelf != shouldShow)
         {
+            Debug.Log("Bubble Visibility");
             bubbleObject.SetActive(shouldShow);
         }
     }

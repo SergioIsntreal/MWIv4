@@ -18,6 +18,7 @@ public class InteractableObject : MonoBehaviour
     public Transform waypoint;
 
     private FoodStation foodStation;
+    private Employee assignedWaiter;
     void Awake()
     {
         // Cache the food station script if this is a cooking station
@@ -27,7 +28,7 @@ public class InteractableObject : MonoBehaviour
     public Vector3 GetWalkToPoint() => waypoint.position;
 
     // This is called when the employee finishes walking
-    public bool StartInteraction()
+    public bool ShouldIStartInteraction()
     {
         if (type == InteractionType.MakingFood && foodStation != null)
         {
@@ -36,10 +37,28 @@ public class InteractableObject : MonoBehaviour
                 Debug.Log("Station already has food! Cannot make more.");
                 return false; // Tell the employee "No"
             }
+            else
+            {
+                return true;
+            }
         }
 
-        Debug.Log($"Starting {type}. Takes {timeToComplete}s.");
-        return true; // Tell the employee "Yes, start your timer"
+        if (GetComponent<TableStation>().HasWaiterArrived())
+        {
+            Debug.Log($"Employee has arrived at table.");
+            return true; // Tell the employee "Yes, start your timer"
+        }
+        return false;
+    }
+
+    public void AssignWaiter(Employee waiter)
+    {
+        assignedWaiter = waiter;
+    }
+
+    public Employee GetAssignedWaiter()
+    {
+        return assignedWaiter;
     }
 
     public void CompleteInteraction()

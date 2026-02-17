@@ -32,6 +32,7 @@ public class Employee : MonoBehaviour
     // For flipping the sprite when they move
     private SpriteRenderer spriteRenderer;
 
+
     void Awake()
     {
         aiLerp = GetComponent<AILerp>();
@@ -84,11 +85,12 @@ public class Employee : MonoBehaviour
 
     private IEnumerator TakeOrderRoutine(TableStation table)
     {
+        
         // 1. Move to the table
-        myInternalTarget.transform.position = table.transform.position;
+        myInternalTarget.transform.position = table.transform.GetChild(0).position;
 
         // 2. Wait until we are close enough
-        while (Vector3.Distance(transform.position, table.transform.position) > 0.6f)
+        while (Vector3.Distance(transform.position, table.transform.GetChild(0).position) > 0.6f)
         {
             yield return null;
         }
@@ -183,8 +185,9 @@ public class Employee : MonoBehaviour
     void StartWorking()
     {
         // 1. Ask the object if we are allowed to interact
-        if (currentTaskObject.StartInteraction())
+        if (currentTaskObject.ShouldIStartInteraction())
         {
+            
             // 2. If the object says "Yes", start the timer
             isWorking = true;
             taskTimer = 0;
@@ -192,7 +195,7 @@ public class Employee : MonoBehaviour
             if (aiLerp != null) aiLerp.canMove = false;
             Debug.Log(characterName + " is officially working.");
         }
-        else
+        else 
         {
             // 3. If the object says "No", clear the task and stop
             currentTaskObject = null;

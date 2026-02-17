@@ -9,6 +9,7 @@ public class Customer : MonoBehaviour
 
     public enum CustomerState { Entering, Waiting, Dragged, Seated, Eating, Paying, Leaving }
     public CustomerState currentState = CustomerState.Entering;
+    public Transform bubblePos;
 
     private Transform currentSlot;
     private Vector3 doorPosition;
