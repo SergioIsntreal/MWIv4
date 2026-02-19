@@ -1,5 +1,58 @@
-# MWIv4
-This time, with A*Grid
+## Script Tracker
+**"Bistro Manager"**
+- Selects the'fastest available Employee' and sends them to the clicked area
+- Determines the movement order
+- A line in Update prevents movement them holding down instead of clicking LMB
+
+**"ClickToMoveHandler"**
+- Creates an empty GameObject that will appear where you click
+- This invisible GameObject will be what characters move towards
+- When you click it determines which tile and sends the character to the centre of that tile
+
+**"CursorManager"**
+- Sets the appearance of your texture depending on what action you're performing (eg. clicking, hovering, grabbing)
+
+**"Customer"**
+- `void Awake()` creates 'myTarget' GameObject for the Customers, so they will move to a location based on their current state
+- `void Awake()` creates a 'transform.position' reference for the door (so that they can leave and despawn)
+- `void Start()` calls "MoveToWaitingArea()"
+- `void Update()` checks that if the Customer's state is 'Entering' that they move to the waiting area, only stopping if they're within a certain distance of the target
+- `MoveToWaitingArea()` communicates with "WaitingAreaManager" to find the closest empty chair to walk to; if no chairs are available, they will leave
+- `SeatAtTable(TableStation table)` snaps the Customer to the TableSeat waypoint, changes the state of the Table to 'Occupied' and the state of the Customer to 'Seated'
+- There's a line of code changing the gameObject layer, but not sure what this is for
+- CustomerPatience is reset
+- Tells the "TableStation" script to 'MarkForOrder()'
+- `LeaveBistro()` sets the chair back to 'Empty' if a leaving Customer had been occupying it
+- 
+
+**"CustomerPatience"**
+
+
+**"CustomerSpawner"**
+
+
+**"DragAndDrop"**
+
+
+**"Employee"**
+
+
+**"FoodStation"**
+
+
+**"InteractableObject"**
+
+
+**"TableStation"**
+
+
+**"TimeManager"**
+
+
+**"WaitingAreaManager"**
+
+
+# MWIv4 Entries
 
 ## DL1 (28/01/26) A* Grid & Employee Movement
 Unfortunately, my chat history with Gemini was erased when I logged off, so I'm gonna have to try and make sense of what I have - not that it'll be very hard, it's got a lot of annotations to clue me in. Worth noting, the main reason this attempt at gridded movement was successful was because Gemini directed me to where to download the script. Very helpful.
