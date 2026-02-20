@@ -1,18 +1,18 @@
 ## Script Tracker
-**"Bistro Manager"**
+### "Bistro Manager"
 - Selects the'fastest available Employee' and sends them to the clicked area
 - Determines the movement order
 - A line in Update prevents movement them holding down instead of clicking LMB
 
-**"ClickToMoveHandler"**
+### "ClickToMoveHandler"
 - Creates an empty GameObject that will appear where you click
 - This invisible GameObject will be what characters move towards
 - When you click it determines which tile and sends the character to the centre of that tile
 
-**"CursorManager"**
+### "CursorManager"
 - Sets the appearance of your texture depending on what action you're performing (eg. clicking, hovering, grabbing)
 
-**"Customer"**
+### "Customer"
 - `void Awake()` creates 'myTarget' GameObject for the Customers, so they will move to a location based on their current state
 - `void Awake()` creates a 'transform.position' reference for the door (so that they can leave and despawn)
 - `void Start()` calls "MoveToWaitingArea()"
@@ -22,35 +22,48 @@
 - There's a line of code changing the gameObject layer, but not sure what this is for
 - CustomerPatience is reset
 - Tells the "TableStation" script to 'MarkForOrder()'
-- `LeaveBistro()` sets the chair back to 'Empty' if a leaving Customer had been occupying it
-- 
+- `LeaveBistro()` sets the Chair or Table back to 'Empty' if a leaving Customer had been occupying it
+- The AI Lerp is re-enabled, the door position is called and `StartCoroutine(DestroyAtDoor())` is called
+- `DestroyAtDoor()`removes the Customer and their invisible target from the Scene
+- 'Drag and Drop Logic' changes the visuals of the cursor, enables dragging/disables movement when they're 'Waiting' or 'Entering', and controls what occurs when the CUstomer is being dragged (self explanatory, I know)
+- `snapBackToWaitingSeat` teleports the Customer back to their seat if not making contact with an available table
+> [!NOTE]
+> The Customer's AI is re-enabled, I want to test if this is necessary OR causing them to walk when they're not supposed to
 
-**"CustomerPatience"**
+### "CustomerPatience"
+- `void Start()` sets Customer's patience to max, starts turning them red when 1/3 remains, and they turn fully red when it's at 1/6, also the bubble is deactivated
+- `void Update()` controls the food bubble visibility, processes the patience meter when the Customer is 'Waiting' or 'Seated', and resets the Customer back to white if they're 'Eating'
+- `UpdateVisuals()` controls the screen shake and the Customer's colour, depending on the patience and if they have been moved
+- `UpdateBubbleVisibility()` only enables the food bubble when the Customer is 'Seated' (at a table)
+- `SetOrderVisuals(string foodName)` has a switch for the food displayed
+> ^ UNFINISHED
+- `ResetPatience()` does exactly what is says on the tin
+- `UpdateOriginalPosition` I thiiiink is a reference for when their position changes the drag&drop logic from `Customer`
+> ^ NEEDS CONFIRMATION
 
+### "CustomerSpawner"
+> PENDING
 
-**"CustomerSpawner"**
+### "DragAndDrop"
+> PENDING
 
+### "Employee"
+> PENDING
 
-**"DragAndDrop"**
+### "FoodStation"
+> PENDING
 
+### "InteractableObject"
+> PENDING
 
-**"Employee"**
+### "TableStation"
+> PENDING
 
+### "TimeManager"
+> PENDING
 
-**"FoodStation"**
-
-
-**"InteractableObject"**
-
-
-**"TableStation"**
-
-
-**"TimeManager"**
-
-
-**"WaitingAreaManager"**
-
+### "WaitingAreaManager"
+> PENDING
 
 # MWIv4 Entries
 
