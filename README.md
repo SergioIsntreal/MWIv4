@@ -42,28 +42,49 @@
 > ^ NEEDS CONFIRMATION
 
 ### "CustomerSpawner"
-> PENDING
+- `void Start()` makes the first Customer always spawns within the first 3 seconds
+- `void Update()` only runs if the `timeManager` is working and the Bistro is Open. The timer counts upwards, so if it exceeds 'nextSpawnTime', spawn a random customer, randomise the spawn timer and reset spawn time
 
 ### "DragAndDrop"
-> PENDING
+- `DragAndDrop` logic, to be assigned to the Food. Customers have a similar logic
+> TESTING REQUIRED
 
 ### "Employee"
-> PENDING
+- The script communicates with the `InteractableObjects` and `TableStation` scripts
+- `void Awake()` contains the 'AI Lerp' and 'destSetter'. A private target is created for each individual Employee and will be set at their current position when the Level starts
+- `void GoTo(Vector3 position, InteractableObject obj = null)` controls when the AI Lerp is active, whether 'isMoving' is true and where they are going
+- `GoToTable(TableStation table)` stops all coroutines and starts coroutine `TakeOrderRoutine(table)`
+> [!Warning]
+> This code is NOT being called! Needs an IF statement that registers when a player clicks the table
+- `IEnumerate TakeOrderRoutine(table)` moves the Employee to the assigned waypoint, initiates taking order if the table requires one, and updates the bubble to randomise and show the order generated
+- `void Update()` calls `HandleFlipping()` (which changes the direction they're facing when moving), calls `StartWorking()` if they arrive at an interactable object + `StopMoving()` and starts the progress bar for interactions
+- `IsBusy()` prevents the Employee from moving if they are engaged in a task or travelling to their destination
 
 ### "FoodStation"
-> PENDING
+- Spawns the food when the timer from the `InteractableObject` is complete
 
 ### "InteractableObject"
-> PENDING
+- To be given to the Tables, Food Stations and Till
+- `ShouldIStartInteraction()` checks if an Employee has arrived at a table or foodstation, and if it requires them to interact, which tells the `Employee` script to initiate `StartWorking()`
+> [!NOTE]
+> Requires an IF statement to check if the Table needs their order taken (I think?)
+- Structured so that the interaction only triggers when the assigned employee reaches the waypoint
+- When the interaction is complete, tells FoodStation to `FinishCooking()`
 
 ### "TableStation"
-> PENDING
+- Controls and monitors whether the table is occupied or needs their order taken
+- Also registers if the Employee has arrived
+- `MarkForOrder` sets 'needsOrder' to true
+- uses `OnTriggerEnter/Exit2D` to register if the Employee has arrived
+> [!Warning]
+> The OnTriggers aren't called and remains untested!
 
 ### "TimeManager"
-> PENDING
+- Linked to the 'TimeText' GameObject
+- Handles how fast the day progresses, has statuses that determine if the `CustomerSpawner` will be active or not and changes the text above the timer to 'Closed' at the end of the shift
 
 ### "WaitingAreaManager"
-> PENDING
+- Tracks which chairs are available, which chairs are taken, finds the closest available chair to the door, and releases the chair when a Customer storms off or is dragged to a Table
 
 # MWIv4 Entries
 
