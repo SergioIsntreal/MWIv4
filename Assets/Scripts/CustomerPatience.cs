@@ -59,7 +59,8 @@ public class CustomerPatience : MonoBehaviour
 
         // Only process patience if Waiting or Seated
         if (customerScript.currentState == Customer.CustomerState.Waiting ||
-            customerScript.currentState == Customer.CustomerState.Seated)
+            customerScript.currentState == Customer.CustomerState.Seated ||
+            customerScript.currentState == Customer.CustomerState.WaitingForFood)
         {
             currentPatience -= Time.deltaTime;
             UpdateVisuals();

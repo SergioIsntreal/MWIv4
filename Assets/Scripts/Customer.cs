@@ -7,7 +7,7 @@ public class Customer : MonoBehaviour
 {
     public static bool IsDragging { get; private set; }
 
-    public enum CustomerState { Entering, Waiting, Dragged, Seated, Eating, Paying, Leaving }
+    public enum CustomerState { Entering, Waiting, Dragged, Seated, WaitingForFood, Eating, Paying, Leaving }
     public CustomerState currentState = CustomerState.Entering;
     public Transform bubblePos;
 

@@ -47,7 +47,7 @@ public class CustomerSpawner : MonoBehaviour
             }
 
             // Set the random time for the NEXT customer
-            nextSpawnTime = Random.Range(minSpawnInterval, maxSpawnInterval);
+            SetRandomNextSpawn();
         }
     }
 

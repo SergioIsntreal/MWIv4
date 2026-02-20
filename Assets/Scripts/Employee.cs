@@ -78,6 +78,7 @@ public class Employee : MonoBehaviour
 
     public void GoToTable(TableStation table)
     {
+        // This needs an if statement, to register if the player clicks on a table
         turnActionCommanded = true; // Allow the next employee to be selected immediately
         StopAllCoroutines();
         StartCoroutine(TakeOrderRoutine(table));
@@ -105,7 +106,7 @@ public class Employee : MonoBehaviour
             Debug.Log($"Employee took order: {choice}");
 
             // Tell the customer to change state to 'WaitingForFood'
-            table.currentCustomer.currentState = Customer.CustomerState.Eating; // Or a new 'WaitingForFood' state
+            table.currentCustomer.currentState = Customer.CustomerState.WaitingForFood;
 
             // 4. Update the Customer's bubble to show the FOOD they want
             // You'll need a way to map the string 'choice' to a sprite
