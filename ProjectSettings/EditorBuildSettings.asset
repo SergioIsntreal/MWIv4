@@ -11,4 +11,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Level Test.unity
     guid: 3285a50cfd61f4843adb864188709c4c
+  - enabled: 1
+    path: Assets/Scenes/Visual Novel Test.unity
+    guid: ae23b5cd706d9174792a839fcca39e64
+  - enabled: 1
+    path: Assets/Scenes/Main Menu.unity
+    guid: 3d1a021a2117c6146bd00d017fe8c2a5
   m_configObjects: {}
