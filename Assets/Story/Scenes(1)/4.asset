@@ -1,0 +1,54 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92c1dbeb923a6fb4fa7d81aa6eba722b, type: 3}
+  m_Name: 4
+  m_EditorClassIdentifier: 
+  sentences:
+  - text: You tear down the notice and kick the door open, scattering a stack of
+      enveloped that were resting against it.
+    speaker: {fileID: 11400000, guid: 201f6469e4184ed47ad1425f0931fb16, type: 2}
+  - text: You are greeted by a trashed foyer, with tables and chairs strewn about
+      the room.
+    speaker: {fileID: 11400000, guid: 201f6469e4184ed47ad1425f0931fb16, type: 2}
+  - text: Muttering draws your attention to the kitchen, where a familiar shape is
+      curled up behind the counter.
+    speaker: {fileID: 11400000, guid: 201f6469e4184ed47ad1425f0931fb16, type: 2}
+  - text: You kneel down in front of him.
+    speaker: {fileID: 11400000, guid: 201f6469e4184ed47ad1425f0931fb16, type: 2}
+  - text: Cas?
+    speaker: {fileID: 11400000, guid: 8d3fe80becf898a46ad20a3c04d47cf7, type: 2}
+  - text: (Incoherent mumbling)
+    speaker: {fileID: 11400000, guid: ec0f790e6c3817c42a746737784f010a, type: 2}
+  - text: You place a hand on his shoulder and he jolts, head snapping up to look
+      at you.
+    speaker: {fileID: 11400000, guid: 201f6469e4184ed47ad1425f0931fb16, type: 2}
+  - text: -or at least, he would, if he had eyes.
+    speaker: {fileID: 11400000, guid: 201f6469e4184ed47ad1425f0931fb16, type: 2}
+  - text: Despite his visual impairment, it only takes a moment for the knight to
+      recognise you.
+    speaker: {fileID: 11400000, guid: 201f6469e4184ed47ad1425f0931fb16, type: 2}
+  - text: ...My liege? Is it really you?
+    speaker: {fileID: 11400000, guid: ec0f790e6c3817c42a746737784f010a, type: 2}
+  - text: In the flesh. What happened here
+    speaker: {fileID: 11400000, guid: 8d3fe80becf898a46ad20a3c04d47cf7, type: 2}
+  - text: Well... when you didn't show up for work, the others decided to take an
+      extended vacation.
+    speaker: {fileID: 11400000, guid: ec0f790e6c3817c42a746737784f010a, type: 2}
+  - text: All at once.
+    speaker: {fileID: 11400000, guid: ec0f790e6c3817c42a746737784f010a, type: 2}
+  - text: Not everyone though! Marchosias and I tried to keep business running in
+      your absence, but alas... we were unsuccessful.
+    speaker: {fileID: 11400000, guid: ec0f790e6c3817c42a746737784f010a, type: 2}
+  - text: My deepest apologies.
+    speaker: {fileID: 11400000, guid: ec0f790e6c3817c42a746737784f010a, type: 2}
+  background: {fileID: 21300000, guid: d0bfd24f10147b34c8273656b715f915, type: 3}
+  nextScene: {fileID: 0}
