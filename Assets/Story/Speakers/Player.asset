@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 406cdbede1b030b4a8fedf99179e34dd, type: 3}
   m_Name: Player
   m_EditorClassIdentifier: 
-  speakerName: $"Player_Name"
-  textColor: {r: 0, g: 0, b: 0, a: 1}
+  speakerName: Player
+  textColor: {r: 0.8742138, g: 0.8742138, b: 0.8742138, a: 1}
