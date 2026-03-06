@@ -28,6 +28,7 @@ public class Employee : MonoBehaviour
     public float movementTimeout = 10.0f; // Max time allowed to reach destination
     private float movementTimer = 0f;
     private bool isMoving = false;
+    private Animator animator;
 
     // For flipping the sprite when they move
     private SpriteRenderer spriteRenderer;
@@ -45,6 +46,8 @@ public class Employee : MonoBehaviour
         // Start at current position so they don't run away at start
         myInternalTarget.transform.position = transform.position;
         spriteRenderer = GetComponent<SpriteRenderer>();
+
+        animator = GetComponent<Animator>();
     }
 
     public void GoTo(Vector3 position, InteractableObject obj = null)
@@ -191,6 +194,7 @@ public class Employee : MonoBehaviour
             
             // 2. If the object says "Yes", start the timer
             isWorking = true;
+            animator.SetBool("Working", true);
             taskTimer = 0;
 
             if (aiLerp != null) aiLerp.canMove = false;
@@ -200,6 +204,7 @@ public class Employee : MonoBehaviour
         {
             // 3. If the object says "No", clear the task and stop
             currentTaskObject = null;
+            animator.SetBool("Working", false);
             StopMoving();
         }
     }
@@ -208,6 +213,7 @@ public class Employee : MonoBehaviour
     {
         isWorking = false;
         isMoving = false;
+        animator.SetBool("Working", false);
 
         // Trigger the actual logic on the station/table/till
         if (currentTaskObject != null)
