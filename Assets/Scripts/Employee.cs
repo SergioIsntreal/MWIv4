@@ -36,16 +36,16 @@ public class Employee : MonoBehaviour
     // EXPERIMENT: STATE MACHINES
     #region State Machine Variables
 
-    public EmployeeStateMachine StateMachine { get; set; }
+    public EmployeeStateMachine eStateMachine { get; set; }
     public EmployeeIdleState IdleState { get; set; }
     public EmployeeWalkingState WalkingState { get; set; }
     public EmployeeWorkingState WorkingState { get; set; }
     public EmployeeFightingState FightingState { get; set; }
     public AbilityActivated AbilityState { get; set; }
 
-    private void AnimationTriggerEvent(AnimationTriggerType triggerType)
+    private void AnimationTriggerEvent(AnimationTriggerType eTriggerType)
     {
-        StateMachine.CurrentEmployeeState.AnimationTriggerEvent(triggerType);
+        eStateMachine.CurrentEmployeeState.AnimationTriggerEvent(eTriggerType);
     }
 
     public enum AnimationTriggerType
@@ -73,17 +73,17 @@ public class Employee : MonoBehaviour
 
         animator = GetComponent<Animator>();
 
-        StateMachine = new EmployeeStateMachine();
-        IdleState = new EmployeeIdleState(this, StateMachine);
-        WalkingState = new EmployeeWalkingState(this, StateMachine);
-        WorkingState = new EmployeeWorkingState(this, StateMachine);
-        FightingState = new EmployeeFightingState(this, StateMachine);
-        AbilityState = new AbilityActivated(this, StateMachine);
+        eStateMachine = new EmployeeStateMachine();
+        IdleState = new EmployeeIdleState(this, eStateMachine);
+        WalkingState = new EmployeeWalkingState(this, eStateMachine);
+        WorkingState = new EmployeeWorkingState(this, eStateMachine);
+        FightingState = new EmployeeFightingState(this, eStateMachine);
+        AbilityState = new AbilityActivated(this, eStateMachine);
     }
 
     private void Start()
     {
-        StateMachine.Initialize(IdleState);
+        eStateMachine.Initialize(IdleState);
     }
 
     #endregion
@@ -198,7 +198,7 @@ public class Employee : MonoBehaviour
         }
 
         // STATE MACHINE LOGIC
-        StateMachine.CurrentEmployeeState.FrameUpdate();
+        eStateMachine.CurrentEmployeeState.FrameUpdate();
     }
 
     public void StopMoving()

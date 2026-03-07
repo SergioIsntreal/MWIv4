@@ -28,7 +28,7 @@ public class EmployeeState
 
     }
 
-    public virtual void AnimationTriggerEvent(Employee.AnimationTriggerType triggerType)
+    public virtual void AnimationTriggerEvent(Employee.AnimationTriggerType eTriggerType)
     {
 
     }

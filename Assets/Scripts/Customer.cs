@@ -20,6 +20,38 @@ public class Customer : MonoBehaviour
 
     private CursorManager cursorMgr;
 
+    // EXPERIMENT: STATE MACHINES
+    #region State Machine Variables
+
+    public CustomerStateMachine cStateMachine { get; set; }
+    public CustomerEnteringState EnteringState { get; set; }
+    public CustomerWaitingChairState WaitingChairState { get; set; }
+    public CustomerDraggedState DraggedState { get; set; }
+    public CustomerWaitingTableState WaitingTableState { get; set; }
+    public CustomerOrderingState OrderingState { get; set; }
+    public CustomerEatingState EatingState { get; set; }
+    public CustomerWaitingToPayState WaitingToPayState { get; set; }
+    public CustomerLeavingState LeavingState { get; set; }
+
+    private void AnimationTriggerEvent(AnimationTriggerType cTriggerType)
+    {
+        cStateMachine.CurrentCustomerState.AnimationTriggerEvent(cTriggerType);
+    }
+
+    public enum AnimationTriggerType
+    {
+        Entering,
+        WaitingChair,
+        Dragged,
+        WaitingTable,
+        Ordering,
+        Eating,
+        WaitingToPay,
+        Leaving
+    }
+
+    #endregion
+
     void Awake()
     {
         cursorMgr = FindFirstObjectByType<CursorManager>();
@@ -39,6 +71,17 @@ public class Customer : MonoBehaviour
         destSetter.target = myTarget.transform;
 
         doorPosition = transform.position; // Spawns at door
+
+        // STATE MACHINE LOGIC
+        cStateMachine = new CustomerStateMachine();
+        EnteringState = new CustomerEnteringState(this, cStateMachine);
+        WaitingChairState = new CustomerWaitingChairState(this, cStateMachine);
+        DraggedState = new CustomerDraggedState(this, cStateMachine);
+        WaitingTableState = new CustomerWaitingTableState(this, cStateMachine);
+        OrderingState = new CustomerOrderingState(this, cStateMachine);
+        EatingState = new CustomerEatingState(this, cStateMachine);
+        WaitingToPayState = new CustomerWaitingToPayState(this, cStateMachine);
+        LeavingState = new CustomerLeavingState(this, cStateMachine);
     }
 
     void Start()
@@ -52,6 +95,9 @@ public class Customer : MonoBehaviour
 
         // 2. Find a seat immediately
         MoveToWaitingArea();
+
+        // STATE MACHINE LOGIC
+        cStateMachine.Initialize(EnteringState);
     }
 
     void Update()
@@ -69,6 +115,9 @@ public class Customer : MonoBehaviour
                 // This state change is what triggers the Patience Timer!
             }
         }
+
+        // STATE MACHINE LOGIC
+        cStateMachine.CurrentCustomerState.FrameUpdate();
     }
 
     void MoveToWaitingArea()

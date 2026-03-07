@@ -6,16 +6,16 @@ public class EmployeeStateMachine
 {
     public EmployeeState CurrentEmployeeState { get; set; }
 
-    public void Initialize(EmployeeState startingState)
+    public void Initialize(EmployeeState eStartingState)
     {
-        CurrentEmployeeState = startingState;
+        CurrentEmployeeState = eStartingState;
         CurrentEmployeeState.EnterState();
     }
 
-    public void ChangeState(EmployeeState newState)
+    public void ChangeState(EmployeeState eNewState)
     {
         CurrentEmployeeState.ExitState();
-        CurrentEmployeeState = newState;
+        CurrentEmployeeState = eNewState;
         CurrentEmployeeState.EnterState();
     }
 }
