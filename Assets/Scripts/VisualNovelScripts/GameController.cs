@@ -12,6 +12,8 @@ public class GameController : MonoBehaviour
         bottomBar.PlayScene(currentScene);
     }
 
+    // May need to add a Pause() and Resume() function for when the dialogue box prompts player input
+
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return) || Input.GetMouseButtonDown(0))
