@@ -33,6 +33,30 @@ public class Employee : MonoBehaviour
     // For flipping the sprite when they move
     private SpriteRenderer spriteRenderer;
 
+    // EXPERIMENT: STATE MACHINES
+    #region State Machine Variables
+
+    public EmployeeStateMachine StateMachine { get; set; }
+    public EmployeeIdleState IdleState { get; set; }
+    public EmployeeWalkingState WalkingState { get; set; }
+    public EmployeeWorkingState WorkingState { get; set; }
+    public EmployeeFightingState FightingState { get; set; }
+    public AbilityActivated AbilityState { get; set; }
+
+    private void AnimationTriggerEvent(AnimationTriggerType triggerType)
+    {
+        StateMachine.CurrentEmployeeState.AnimationTriggerEvent(triggerType);
+    }
+
+    public enum AnimationTriggerType
+    {
+        EmployeeIdle,
+        EmployeeWalking,
+        EmployeeWorking,
+        EmployeeFighting,
+        AbilityActivated
+    }
+
 
     void Awake()
     {
@@ -48,7 +72,21 @@ public class Employee : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
 
         animator = GetComponent<Animator>();
+
+        StateMachine = new EmployeeStateMachine();
+        IdleState = new EmployeeIdleState(this, StateMachine);
+        WalkingState = new EmployeeWalkingState(this, StateMachine);
+        WorkingState = new EmployeeWorkingState(this, StateMachine);
+        FightingState = new EmployeeFightingState(this, StateMachine);
+        AbilityState = new AbilityActivated(this, StateMachine);
     }
+
+    private void Start()
+    {
+        StateMachine.Initialize(IdleState);
+    }
+
+    #endregion
 
     public void GoTo(Vector3 position, InteractableObject obj = null)
     {
@@ -158,6 +196,9 @@ public class Employee : MonoBehaviour
                 StopMoving();
             }
         }
+
+        // STATE MACHINE LOGIC
+        StateMachine.CurrentEmployeeState.FrameUpdate();
     }
 
     public void StopMoving()
