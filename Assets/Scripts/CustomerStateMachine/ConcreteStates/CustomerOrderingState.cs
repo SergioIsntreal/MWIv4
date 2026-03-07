@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class CustomerOrderingState : CustomerState
 {
+    // Activates when the employee is 'TakingOrder', then resets the waiting timer (returns to 'WaitingTable')
     public CustomerOrderingState(Customer customer, CustomerStateMachine customerStateMachine) : base(customer, customerStateMachine)
     {
     }

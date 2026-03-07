@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class CustomerEnteringState : CustomerState
 {
+    // Where the customer locates and walks towards the nearest available chair (bool for chairs)
     public CustomerEnteringState(Customer customer, CustomerStateMachine customerStateMachine) : base(customer, customerStateMachine)
     {
     }

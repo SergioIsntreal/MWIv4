@@ -4,13 +4,14 @@ using UnityEngine;
 
 public class FoodStationCookingState : FoodStationState
 {
+    // Enters this state when an employee is "Working" and standing at the designated waypoint (or collider)
     public FoodStationCookingState(FoodStation foodStation, FoodStationStateMachine foodStationStateMachine) : base(foodStation, foodStationStateMachine)
     {
     }
 
-    public override void AnimationTriggerEvent(Employee.AnimationTriggerType triggerType)
+    public override void AnimationTriggerEvent(FoodStation.AnimationTriggerType fsTriggerType)
     {
-        base.AnimationTriggerEvent(triggerType);
+        base.AnimationTriggerEvent(fsTriggerType);
     }
 
     public override void EnterState()

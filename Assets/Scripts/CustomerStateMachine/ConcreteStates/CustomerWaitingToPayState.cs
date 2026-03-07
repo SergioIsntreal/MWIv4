@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class CustomerWaitingToPayState : CustomerState
 {
+    // The customer will walk towards the till and wait for an employee to be standing behind it (NO PATIENCE METER HERE)
+    // Once paid, enter 'LeavingState'
     public CustomerWaitingToPayState(Customer customer, CustomerStateMachine customerStateMachine) : base(customer, customerStateMachine)
     {
     }

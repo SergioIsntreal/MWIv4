@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class CustomerWaitingTableState : CustomerState
 {
+    // When the customer is seated at a table, they enter this state. The patience resets when the employee
+    // takes their order, or their food is served. If the patience meter runs out, they switch to 'LeavingState'
     public CustomerWaitingTableState(Customer customer, CustomerStateMachine customerStateMachine) : base(customer, customerStateMachine)
     {
     }

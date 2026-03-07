@@ -4,13 +4,14 @@ using UnityEngine;
 
 public class FoodStationEmptyState : FoodStationState
 {
+    // Default state; not being interacted with
     public FoodStationEmptyState(FoodStation foodStation, FoodStationStateMachine foodStationStateMachine) : base(foodStation, foodStationStateMachine)
     {
     }
 
-    public override void AnimationTriggerEvent(Employee.AnimationTriggerType triggerType)
+    public override void AnimationTriggerEvent(FoodStation.AnimationTriggerType fsTriggerType)
     {
-        base.AnimationTriggerEvent(triggerType);
+        base.AnimationTriggerEvent(fsTriggerType);
     }
 
     public override void EnterState()

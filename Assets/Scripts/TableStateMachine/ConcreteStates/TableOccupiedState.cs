@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class TableOccupiedState : TableState
 {
+    // This registers when the table has a customer sitting at it
     public TableOccupiedState(Table table, TableStateMachine tableStateMachine) : base(table, tableStateMachine)
     {
     }

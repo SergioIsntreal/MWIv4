@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class TableEmptyCleanState : TableState
 {
+    // Default State; allows you to seat customers
+
     public TableEmptyCleanState(Table table, TableStateMachine tableStateMachine) : base(table, tableStateMachine)
     {
     }

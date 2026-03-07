@@ -4,13 +4,14 @@ using UnityEngine;
 
 public class FoodStationFullState : FoodStationState
 {
+    // When there is a dish waiting at the station, you cannot make more until it is removed
     public FoodStationFullState(FoodStation foodStation, FoodStationStateMachine foodStationStateMachine) : base(foodStation, foodStationStateMachine)
     {
     }
 
-    public override void AnimationTriggerEvent(Employee.AnimationTriggerType triggerType)
+    public override void AnimationTriggerEvent(FoodStation.AnimationTriggerType fsTriggerType)
     {
-        base.AnimationTriggerEvent(triggerType);
+        base.AnimationTriggerEvent(fsTriggerType);
     }
 
     public override void EnterState()

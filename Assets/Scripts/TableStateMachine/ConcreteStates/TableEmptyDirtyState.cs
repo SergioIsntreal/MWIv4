@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class TableEmptyDirtyState : TableState
 {
+    // After a customer has left, the table will need to be cleaned in order to be used again
     public TableEmptyDirtyState(Table table, TableStateMachine tableStateMachine) : base(table, tableStateMachine)
     {
     }

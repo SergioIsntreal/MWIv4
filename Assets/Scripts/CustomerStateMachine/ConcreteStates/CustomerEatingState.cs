@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class CustomerEatingState : CustomerState
 {
+    // Lasts for about 6 seconds, then the customer will either return to "WaitingTable" or change to "WaitingToPay"
+    // NOTE: Might need to split "WaitingTable" to 'WaitingToOrder' and 'WaitingForFood', though the animation
+    // will not differ
+
     public CustomerEatingState(Customer customer, CustomerStateMachine customerStateMachine) : base(customer, customerStateMachine)
     {
     }

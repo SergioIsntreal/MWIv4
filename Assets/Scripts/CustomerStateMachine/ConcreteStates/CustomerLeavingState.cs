@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class CustomerLeavingState : CustomerState
 {
+    // When the customer has paid (or has run out of patience) they will leave the bistro
     public CustomerLeavingState(Customer customer, CustomerStateMachine customerStateMachine) : base(customer, customerStateMachine)
     {
     }

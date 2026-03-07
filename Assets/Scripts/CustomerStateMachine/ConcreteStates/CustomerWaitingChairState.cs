@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class CustomerWaitingChairState : CustomerState
 {
+    // Waiting for the player to drag them to an empty table. When dragged, enters "DraggedState"
     public CustomerWaitingChairState(Customer customer, CustomerStateMachine customerStateMachine) : base(customer, customerStateMachine)
     {
     }
