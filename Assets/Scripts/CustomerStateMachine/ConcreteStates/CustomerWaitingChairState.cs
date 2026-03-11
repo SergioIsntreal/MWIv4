@@ -4,9 +4,15 @@ using UnityEngine;
 
 public class CustomerWaitingChairState : CustomerState
 {
+    private float currentPatience;
+    Customer _customer;
+    CustomerStateMachine _customerStateMachine;
+
     // Waiting for the player to drag them to an empty table. When dragged, enters "DraggedState"
     public CustomerWaitingChairState(Customer customer, CustomerStateMachine customerStateMachine) : base(customer, customerStateMachine)
     {
+        _customer = customer;
+        _customerStateMachine = customerStateMachine;
     }
 
     public override void AnimationTriggerEvent(Customer.AnimationTriggerType cTriggerType)
@@ -17,6 +23,8 @@ public class CustomerWaitingChairState : CustomerState
     public override void EnterState()
     {
         base.EnterState();
+        _customer.currentState = Customer_State.Waiting;
+        currentPatience = _customer.maxPatience;
     }
 
     public override void ExitState()
@@ -27,5 +35,12 @@ public class CustomerWaitingChairState : CustomerState
     public override void FrameUpdate()
     {
         base.FrameUpdate();
+        currentPatience -= Time.deltaTime;
+
+        if (currentPatience <= 0)
+        {
+            _customerStateMachine.ChangeState(_customer.LeavingState);
+        }
+
     }
 }

@@ -1,82 +1,121 @@
+using Pathfinding;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 public class DragAndDrop : MonoBehaviour
 {
-    public LayerMask layerMask;
-    public LayerMask releaseLayerMask;
+    public static bool IsDragging { get; private set; }
+    private Vector3 doorPosition;
+    private AIDestinationSetter destSetter;
+    private CursorManager cursorMgr;
+    private Customer customer;
 
-    private bool dragging = false;
-
-    private Transform selectedObject;
-    private Vector3 worldPosition;
-
-    private Vector3 offset;
-    public bool snapBack = false;
-    private Vector3 origin;
-    [HideInInspector] public bool movingBack = false;
-    public float snapBackSpeed;
-    public int orderIndex;
 
     private void Start()
     {
-        origin = transform.position;
+        cursorMgr = FindFirstObjectByType<CursorManager>();
+        customer = GetComponent<Customer>();
     }
 
     void Update()
     {
-        worldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        worldPosition.z = 0;
-        if (Input.GetMouseButtonDown(0))
+      
+
+    }
+    // DRAG AND DROP LOGIC
+
+    void OnMouseEnter()
+    {
+        if (!IsDragging) cursorMgr.SetHover();
+    }
+
+    void OnMouseExit()
+    {
+        if (!IsDragging) cursorMgr.SetDefault();
+    }
+
+    void OnMouseDown()
+    {
+        //if (customer.currentState == Customer_State.Waiting || customer.currentState == Customer_State.Entering)
+        //{
+            IsDragging = true;
+            Debug.Log("Mouse Down");
+            //customer.currentState = Customer_State.Dragged;
+            cursorMgr.SetGrab(); // Change to grab icon
+            if (customer.aiLerp != null) customer.aiLerp.canMove = false;
+        //}
+    }
+
+    void OnMouseDrag()
+    {
+        //if (customer.currentState == Customer_State.Dragged)
+        //{
+        Debug.Log("Dragging");
+        Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            mousePos.z = 0;
+            transform.position = mousePos; // Follow the finger/mouse
+        //}
+    }
+
+    /*void OnMouseUp()
+    {
+        if (customer.currentState == Customer_State.Dragged)
         {
-            RaycastHit2D hit = Physics2D.Raycast(worldPosition, Vector2.zero, 1f, layerMask);
-            if (hit.collider == null) { return; }
-            if (hit.collider != null && hit.collider.gameObject == gameObject)
+            IsDragging = false;
+
+            // Create a LayerMask for your "Stations" layer (assuming Tables are on Layer 7)
+            int stationLayerMask = LayerMask.GetMask("Stations");
+
+            // 1. Look for a TableStation within a small radius of the drop point
+            Collider2D hit = Physics2D.OverlapCircle(transform.position, 0.5f, stationLayerMask);
+
+            if (hit != null)
             {
-                print(hit.collider.name);
-                selectedObject = hit.collider.transform;
-                offset = worldPosition - selectedObject.position;
-                dragging = true;
+                TableStation table = hit.GetComponent<TableStation>();
+
+                // 2. If it's a table and it's not already taken...
+                if (table != null && !table.isOccupied)
+                {
+                    customer.SeatAtTable(table);
+                    GetComponent<CustomerPatience>().UpdateOriginalPosition();
+                }
+                else
+                {
+                    SnapBackToWaitingSeat();
+                }
+            }
+            else
+            {
+                SnapBackToWaitingSeat();
             }
         }
 
-        if (Input.GetMouseButtonUp(0))
-        {
-            dragging = false;
-            movingBack = true;
-            worldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            worldPosition.z = 0;
-            RaycastHit2D hit = Physics2D.Raycast(worldPosition, Vector2.zero, 1f, releaseLayerMask);
-            //if (hit.collider != null && hit.collider.transform.GetChild(0).GetComponent<Table>().orderIndex == orderIndex)
-            //{
-            //    print("Order served");
+        cursorMgr.SetDefault();
+    }*/
 
-            //}
-            //else
-            //{
-            //    transform.position = origin;
-            //}
-        }
-
-        if (dragging)
-        {
-            selectedObject.position = worldPosition - offset;
-        }
-        if (snapBack && movingBack)
-        {
-            float step = snapBackSpeed * Time.deltaTime;
-            SnapBack(step);
-        }
-
-    }
-
-    void SnapBack(float step)
+    void SnapBackToWaitingSeat()
     {
-        transform.position = Vector2.MoveTowards(transform.position, origin, step);
-        if (Mathf.Approximately(Vector2.Distance(transform.position, origin), 0))
+        if (customer.currentSlot != null)
         {
-            movingBack = false;
+            Debug.Log("No valid table found. Snapping back to waiting seat.");
+
+            // Teleport back to the waiting chair
+            transform.position = customer.currentSlot.position;
+
+            // Update the AI target so they don't try to walk back to where you dropped them
+            customer.myTarget.transform.position = customer.currentSlot.position;
+
+            customer.currentState = Customer_State.Waiting;
+
+            // Re-enable AI
+            if (customer.aiLerp != null)
+            {
+                customer.aiLerp.enabled = true;
+                customer.aiLerp.canMove = true;
+            }
         }
     }
+
 }

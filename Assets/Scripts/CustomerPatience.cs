@@ -48,21 +48,21 @@ public class CustomerPatience : MonoBehaviour
 
     void Update()
     {
-        if (customerScript.currentState == Customer.CustomerState.Leaving)
+        if (customerScript.currentState == Customer_State.Leaving)
         {
             bubbleObject.SetActive(false); // Hide the bubble
             customerRenderer.color = Color.white; // Reset color
             return; // Exit the function early so we don't override the position
         }
 
-        UpdateBubbleVisibility();
+        //UpdateBubbleVisibility();
 
         // Only process patience if Waiting or Seated
-        if (customerScript.currentState == Customer.CustomerState.Waiting ||
-            customerScript.currentState == Customer.CustomerState.Seated ||
-            customerScript.currentState == Customer.CustomerState.WaitingForFood)
+        if (customerScript.currentState == Customer_State.Waiting ||
+            customerScript.currentState == Customer_State.Seated ||
+            customerScript.currentState == Customer_State.WaitingForFood)
         {
-            currentPatience -= Time.deltaTime;
+            //currentPatience -= Time.deltaTime;
             UpdateVisuals();
 
             if (currentPatience <= 0)
@@ -72,7 +72,7 @@ public class CustomerPatience : MonoBehaviour
                 this.enabled = false;
             }
         }
-        else if (customerScript.currentState == Customer.CustomerState.Eating)
+        else if (customerScript.currentState == Customer_State.Eating)
         {
             // Reset visuals when they are finally served
             customerRenderer.color = Color.white;
@@ -82,7 +82,7 @@ public class CustomerPatience : MonoBehaviour
 
     void UpdateVisuals()
     {
-        if (customerScript.currentState == Customer.CustomerState.Leaving) return;
+        if (customerScript.currentState == Customer_State.Leaving) return;
 
         // If IsDragging is true, we check if THIS object is the one moving.
         // If the position has changed since the last frame, it means we are dragging it.
@@ -117,16 +117,17 @@ public class CustomerPatience : MonoBehaviour
         }
     }
 
-    void UpdateBubbleVisibility()
+    public void UpdateBubbleVisibility()
     {
         
-        bool shouldShow = (customerScript.currentState == Customer.CustomerState.Seated);
+       /* bool shouldShow = (customerScript.currentState == Customer.CustomerState.Seated);
 
         if (bubbleObject.activeSelf != shouldShow)
-        {
+        {*/
             Debug.Log("Bubble Visibility");
-            bubbleObject.SetActive(shouldShow);
-        }
+            bubbleObject.SetActive(true);
+        //bubbleRenderer.sprite = angryBubble;
+        //}
     }
 
     public void SetOrderVisual(string foodName)
