@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sentences:
   - text: You tear down the notice and kick the door open, scattering a stack of
-      enveloped that were resting against it.
+      envelopes that were resting against it.
     speaker: {fileID: 11400000, guid: 201f6469e4184ed47ad1425f0931fb16, type: 2}
   - text: You are greeted by a trashed foyer, with tables and chairs strewn about
       the room.

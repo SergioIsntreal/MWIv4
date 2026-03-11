@@ -23,8 +23,8 @@ MonoBehaviour:
     speaker: {fileID: 11400000, guid: 9edf989a1ba229f40a59b04fa3dd2d8d, type: 2}
   - text: 'Please select your Pronouns:'
     speaker: {fileID: 11400000, guid: 9edf989a1ba229f40a59b04fa3dd2d8d, type: 2}
-  - text: And finally, can you confirm that you wish to give up your place in the
-      Afterlife for a... "Demon Maid Cafe"?
+  - text: And finally, can you confirm that you wish to give up your place in Heaven
+      for a... "Demon Maid Cafe"?
     speaker: {fileID: 11400000, guid: 9edf989a1ba229f40a59b04fa3dd2d8d, type: 2}
   - text: ...
     speaker: {fileID: 11400000, guid: 9edf989a1ba229f40a59b04fa3dd2d8d, type: 2}

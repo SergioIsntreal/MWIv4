@@ -8,24 +8,29 @@ public class BackgroundController : MonoBehaviour
     public bool isSwitched = false;
     public Image background1;
     public Image background2;
-    public Animator animator;
+    public Image background3;
+    public Image background4;
+    public Animator animator;   
 
+    // Need to enable it so that it cycles through the number of backgrounds, rather than 1 and 2
+    // Also needs to register the different Scene Transitions
     public void SwitchImage(Sprite sprite)
     {
         if (!isSwitched)
         {
             background2.sprite = sprite;
-            animator.SetTrigger("SwitchFirst");
+            animator.SetTrigger("SceneTransition1");
         }
         else
         {
             background1.sprite = sprite;
-            animator.SetTrigger("SwitchSecond");
+            return;
         }
+
         isSwitched = !isSwitched;
     }
 
-    public void SetImage(Sprite sprite)
+    public void SetImage (Sprite sprite)
     {
         if (!isSwitched)
         {
