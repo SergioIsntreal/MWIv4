@@ -6,6 +6,7 @@ public class WaitingAreaManager : MonoBehaviour
 {
     public static WaitingAreaManager Instance;
     public List<Transform> waitingSlots; // Drag chair transformers here
+    Customer customer; // Reference to the customer script
 
     // Using Transform as key to track if a chair is taken
     private Dictionary<Transform, bool> slotOccupancy = new Dictionary<Transform, bool>();

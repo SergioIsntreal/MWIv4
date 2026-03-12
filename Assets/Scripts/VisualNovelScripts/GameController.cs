@@ -4,21 +4,26 @@ using UnityEngine;
 
 public class GameController : MonoBehaviour
 {
-    public StoryScene currentScene;
+    public GameScene currentScene;
     public BottomBarController bottomBar;
     public BackgroundController backgroundController;
+    public ChooseController chooseController;
 
     private State state = State.IDLE;
 
     private enum State
     {
-        IDLE, ANIMATE
+        IDLE, ANIMATE, CHOOSE
     }
 
     void Start()
     {
-        bottomBar.PlayScene(currentScene);
-        backgroundController.SetImage(currentScene.background);
+        if (currentScene is StoryScene)
+        {
+            StoryScene storyScene = currentScene as StoryScene;
+            bottomBar.PlayScene(storyScene);
+            backgroundController.SetImage(storyScene.background);
+        }
     }
 
     // May need to add a Pause() and Resume() function for when the dialogue box prompts player input
@@ -31,7 +36,7 @@ public class GameController : MonoBehaviour
             {
                 if (bottomBar.IsLastSentence())
                 {
-                    PlayScene(currentScene.nextScene);
+                    PlayScene((currentScene as StoryScene).nextScene);
                 }
 
                 bottomBar.PlayNextSentence();
@@ -39,24 +44,33 @@ public class GameController : MonoBehaviour
         }
     }
 
-    private void PlayScene(StoryScene scene)
+    public void PlayScene(GameScene scene)
     {
         StartCoroutine(SwitchScene(scene));
     }
 
-    private IEnumerator SwitchScene(StoryScene scene)
+    private IEnumerator SwitchScene(GameScene scene)
     {
         yield return new WaitForSeconds(3f);
         state = State.ANIMATE;
         currentScene = scene;
         bottomBar.Hide();
         yield return new WaitForSeconds(1f);
-        backgroundController.SwitchImage(scene.background);
-        yield return new WaitForSeconds(1f);
-        bottomBar.ClearText();
-        bottomBar.Show();
-        yield return new WaitForSeconds(1f);
-        bottomBar.PlayScene(scene);
-        state = State.IDLE;
+        if (scene is StoryScene)
+        {
+            StoryScene storyScene = scene as StoryScene;
+            backgroundController.SwitchImage(storyScene.background);
+            yield return new WaitForSeconds(1f);
+            bottomBar.ClearText();
+            bottomBar.Show();
+            yield return new WaitForSeconds(1f);
+            bottomBar.PlayScene(storyScene);
+            state = State.IDLE;
+        }
+        else if (scene is ChooseScene)
+        {
+            state = State.CHOOSE;
+            chooseController.SetupChoose(scene as ChooseScene);
+        }
     }
 }

@@ -10,18 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 92c1dbeb923a6fb4fa7d81aa6eba722b, type: 3}
-  m_Name: 1
+  m_Name: 1A
   m_EditorClassIdentifier: 
   sentences:
-  - text: ...Ah, there you are.
+  - text: And finally, can you confirm that you wish to give up your place in Heaven
+      for a... "Demon Maid Cafe"?
     speaker: {fileID: 11400000, guid: 9edf989a1ba229f40a59b04fa3dd2d8d, type: 2}
-  - text: Fret not, you will be returned to your world shortly.
+  - text: . . .
     speaker: {fileID: 11400000, guid: 9edf989a1ba229f40a59b04fa3dd2d8d, type: 2}
-  - text: I just need a few things from you first...
+  - text: Very Well.
     speaker: {fileID: 11400000, guid: 9edf989a1ba229f40a59b04fa3dd2d8d, type: 2}
-  - text: 'Please state your Name:'
-    speaker: {fileID: 11400000, guid: 9edf989a1ba229f40a59b04fa3dd2d8d, type: 2}
-  - text: 'Please select your Pronouns:'
+  - text: Commencing Rebirth. May God have mercy on your soul...
     speaker: {fileID: 11400000, guid: 9edf989a1ba229f40a59b04fa3dd2d8d, type: 2}
   background: {fileID: 21300000, guid: a0f69e476ffc83b4bad2c256dc5bd974, type: 3}
-  nextScene: {fileID: 11400000, guid: 5d54d2de9f5ccea45839647a60737fd6, type: 2}
+  nextScene: {fileID: 11400000, guid: 72ef421c2f88eaa469ae705d952307fa, type: 2}

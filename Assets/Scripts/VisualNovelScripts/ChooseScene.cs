@@ -2,17 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ChooseScene : MonoBehaviour
+[CreateAssetMenu(fileName = "NewChooseScene", menuName = "Data/New Choose Scene")]
+[System.Serializable]
+public class ChooseScene : GameScene
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public List<ChooseLabel> labels;
 
-    // Update is called once per frame
-    void Update()
+    [System.Serializable]
+    public struct ChooseLabel
     {
-        
+        public string text;
+        public StoryScene nextScene;
     }
 }
