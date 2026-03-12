@@ -1,13 +1,26 @@
+using Pathfinding;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class CustomerWaitingChairState : CustomerState
 {
+<<<<<<< Updated upstream
     private float currentPatience;
     Customer _customer;
     CustomerStateMachine _customerStateMachine;
 
+=======
+<<<<<<< Updated upstream
+=======
+    [HideInInspector] public AILerp aiLerp;
+    private float currentPatience;
+    DragNDrop dragNDrop;
+    Customer _customer;
+    CustomerStateMachine _customerStateMachine;
+
+>>>>>>> Stashed changes
+>>>>>>> Stashed changes
     // Waiting for the player to drag them to an empty table. When dragged, enters "DraggedState"
     public CustomerWaitingChairState(Customer customer, CustomerStateMachine customerStateMachine) : base(customer, customerStateMachine)
     {
@@ -18,6 +31,11 @@ public class CustomerWaitingChairState : CustomerState
     public override void AnimationTriggerEvent(Customer.AnimationTriggerType cTriggerType)
     {
         base.AnimationTriggerEvent(cTriggerType);
+    }
+
+    private void Update()
+    {
+        aiLerp.canMove = false;
     }
 
     public override void EnterState()
@@ -35,6 +53,12 @@ public class CustomerWaitingChairState : CustomerState
     public override void FrameUpdate()
     {
         base.FrameUpdate();
+<<<<<<< Updated upstream
+=======
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
         currentPatience -= Time.deltaTime;
 
         if (currentPatience <= 0)
@@ -42,5 +66,9 @@ public class CustomerWaitingChairState : CustomerState
             _customerStateMachine.ChangeState(_customer.LeavingState);
         }
 
+<<<<<<< Updated upstream
+=======
+>>>>>>> Stashed changes
+>>>>>>> Stashed changes
     }
 }

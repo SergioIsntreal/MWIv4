@@ -120,9 +120,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentState: 0
   bubblePos: {fileID: 0}
+<<<<<<< Updated upstream
   myTarget: {fileID: 0}
   maxPatience: 5
   customerPatience: {fileID: 0}
+=======
+<<<<<<< Updated upstream
+=======
+  currentSlot: {fileID: 0}
+  aiLerp: {fileID: 0}
+  myTarget: {fileID: 0}
+  maxPatience: 5
+  customerPatience: {fileID: 0}
+>>>>>>> Stashed changes
+>>>>>>> Stashed changes
 --- !u!114 &6413899262919553272
 MonoBehaviour:
   m_ObjectHideFlags: 0

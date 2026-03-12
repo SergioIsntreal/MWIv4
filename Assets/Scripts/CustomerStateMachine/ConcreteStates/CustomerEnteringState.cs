@@ -1,3 +1,4 @@
+using Pathfinding;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -22,8 +23,18 @@ public class CustomerEnteringState : CustomerState
 
     public override void EnterState()
     {
+<<<<<<< Updated upstream
         _customer.currentState = Customer_State.Entering;
         _customer.MoveToWaitingArea();
+=======
+<<<<<<< Updated upstream
+        base.EnterState();
+=======
+        _customer.currentState = Customer_State.Entering;
+        _customer.MoveToWaitingArea();
+        _customer.aiLerp.canMove = true;
+>>>>>>> Stashed changes
+>>>>>>> Stashed changes
     }
 
     public override void ExitState()

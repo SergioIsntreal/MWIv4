@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4593230159045514515}
   - component: {fileID: 311878654673753905}
   - component: {fileID: 977241726723899976}
+  - component: {fileID: 8019551395534316736}
   - component: {fileID: 3163313976574869585}
   - component: {fileID: 8730993171514944027}
   - component: {fileID: 566327728016165242}
@@ -120,9 +121,45 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentState: 0
   bubblePos: {fileID: 0}
+<<<<<<< Updated upstream
   myTarget: {fileID: 0}
   maxPatience: 5
   customerPatience: {fileID: 0}
+=======
+<<<<<<< Updated upstream
+=======
+  currentSlot: {fileID: 0}
+  aiLerp: {fileID: 0}
+  myTarget: {fileID: 0}
+  maxPatience: 5
+  customerPatience: {fileID: 0}
+--- !u!114 &8019551395534316736
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2015486152778895159}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a9184b607fbe1644a91bb4b569f49ce3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  aiLerp: {fileID: 0}
+  customer: {fileID: 977241726723899976}
+  snapPoints:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  snapRange: 1
+>>>>>>> Stashed changes
+>>>>>>> Stashed changes
 --- !u!114 &3163313976574869585
 MonoBehaviour:
   m_ObjectHideFlags: 0
