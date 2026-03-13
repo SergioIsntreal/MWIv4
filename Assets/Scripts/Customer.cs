@@ -206,6 +206,7 @@ public class Customer : MonoBehaviour
         {
             aiLerp.enabled = true;
             aiLerp.canMove = true;
+            aiLerp.autoRepath.mode = AutoRepathPolicy.Mode.EveryNSeconds;
             aiLerp.Teleport(transform.position); // Note: Removed temporarily
         }
 
@@ -306,6 +307,7 @@ public class Customer : MonoBehaviour
     {
         aiLerp.enabled = true;
         aiLerp.canMove = true;
+        aiLerp.autoRepath.mode = AutoRepathPolicy.Mode.Never;
 
         Debug.Log("No valid table found. Snapping back to waiting seat.");
         // Teleport back to the waiting chair
