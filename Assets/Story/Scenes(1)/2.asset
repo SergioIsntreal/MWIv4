@@ -24,7 +24,8 @@ MonoBehaviour:
     speaker: {fileID: 11400000, guid: 201f6469e4184ed47ad1425f0931fb16, type: 2}
   - text: There's no time for moping, though. You have a job to do.
     speaker: {fileID: 11400000, guid: 201f6469e4184ed47ad1425f0931fb16, type: 2}
-  - text: The Flame & Fork looms above, fast asleep, along with the rest of the street.
+  - text: The Flame & Fork Bistro looms above, fast asleep, along with the rest of
+      the street.
     speaker: {fileID: 11400000, guid: 201f6469e4184ed47ad1425f0931fb16, type: 2}
   - text: 'There''s a sheet of paper stuck to the door:'
     speaker: {fileID: 11400000, guid: 201f6469e4184ed47ad1425f0931fb16, type: 2}

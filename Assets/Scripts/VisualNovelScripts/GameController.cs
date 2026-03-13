@@ -42,6 +42,8 @@ public class GameController : MonoBehaviour
                 bottomBar.PlayNextSentence();
             }
         }
+
+
     }
 
     public void PlayScene(GameScene scene)
@@ -51,7 +53,7 @@ public class GameController : MonoBehaviour
 
     private IEnumerator SwitchScene(GameScene scene)
     {
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(1.5f);
         state = State.ANIMATE;
         currentScene = scene;
         bottomBar.Hide();
