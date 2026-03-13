@@ -304,14 +304,14 @@ public class Customer : MonoBehaviour
 
     void SnapBackToWaitingSeat()
     {
+        aiLerp.enabled = true;
+        aiLerp.canMove = true;
+
         Debug.Log("No valid table found. Snapping back to waiting seat.");
-
-        // (allegedly) moves the customer target to the chair slot
-        //myTarget.transform.position = currentSlot.position;
-
         // Teleport back to the waiting chair
-        transform.position = myTarget.transform.position;
-
+        transform.position = currentSlot.position;
+        destSetter.target.position = currentSlot.position;
+        //destSetter.target = myTarget.transform;
         currentState = CustomerState.Waiting;
     }
 }

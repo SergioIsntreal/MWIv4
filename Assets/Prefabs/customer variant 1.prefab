@@ -172,7 +172,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   version: 4
   autoRepath:
-    mode: 1
+    mode: 0
     interval: 1
     sensitivity: 10
     maximumInterval: 2
