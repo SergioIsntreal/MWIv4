@@ -176,6 +176,10 @@ public class Customer : MonoBehaviour
         // Notify Table
         table.MarkForOrder();
 
+        // Free up the chair
+        WaitingAreaManager.Instance.ReleaseSlot(currentSlot);
+        currentSlot = null;
+
         Debug.Log($"Customer snapped to table at {seatPos}");
     }
 
@@ -300,24 +304,14 @@ public class Customer : MonoBehaviour
 
     void SnapBackToWaitingSeat()
     {
-        if (currentSlot != null)
-        {
-            Debug.Log("No valid table found. Snapping back to waiting seat.");
+        Debug.Log("No valid table found. Snapping back to waiting seat.");
 
-            // Teleport back to the waiting chair
-            transform.position = currentSlot.position;
+        // (allegedly) moves the customer target to the chair slot
+        //myTarget.transform.position = currentSlot.position;
 
-            // Update the AI target so they don't try to walk back to where you dropped them
-            myTarget.transform.position = currentSlot.position;
+        // Teleport back to the waiting chair
+        transform.position = myTarget.transform.position;
 
-            currentState = CustomerState.Waiting;
-
-            // Re-enable AI
-            if (aiLerp != null)
-            {
-                aiLerp.enabled = true;
-                aiLerp.canMove = true;
-            }
-        }
+        currentState = CustomerState.Waiting;
     }
 }
