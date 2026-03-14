@@ -92,7 +92,6 @@ public class Customer : MonoBehaviour
 
     void Start()
     {
-<<<<<<< Updated upstream
         // 1. Force the AI to be ready to move
         if (aiLerp != null)
         {
@@ -101,15 +100,14 @@ public class Customer : MonoBehaviour
         }
 
         // 2. Find a seat immediately
-<<<<<<< Updated upstream
+
         //MoveToWaitingArea();
-=======
+
         MoveToWaitingArea();
-=======
+
         aiLerp.canMove = true;
         aiLerp.canSearch = true;
->>>>>>> Stashed changes
->>>>>>> Stashed changes
+
 
         // STATE MACHINE LOGIC
         cStateMachine.Initialize(EnteringState);
@@ -141,22 +139,12 @@ public class Customer : MonoBehaviour
 
             if (aiLerp != null) aiLerp.SearchPath();
         }
-<<<<<<< Updated upstream
-        /*else
-=======
-<<<<<<< Updated upstream
         else
->>>>>>> Stashed changes
         {
             Debug.LogWarning("[Customer] Cafe full! Leaving immediately.");
             LeaveBistro();
         }
-<<<<<<< Updated upstream
-        */
-=======
-=======
->>>>>>> Stashed changes
->>>>>>> Stashed changes
+
     }
 
     public void SeatAtTable(TableStation table)
