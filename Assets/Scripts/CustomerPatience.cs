@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class CustomerPatience : MonoBehaviour
 {
+    // Needs a name change, as the patience will be handled within the Waiting States
     [Header("Visual References")]
     public SpriteRenderer customerRenderer;
     public GameObject bubbleObject;
@@ -20,7 +21,7 @@ public class CustomerPatience : MonoBehaviour
     public Sprite icecreamSprite;
 
     [Header("Settings")]
-    public float maxPatience = 20f;
+    //public float maxPatience = 20f;
     public float baseScale = 0.5f; // The "Normal" size of your bubble
 
     [Header("Shake Settings")]
@@ -34,11 +35,11 @@ public class CustomerPatience : MonoBehaviour
 
     void Start()
     {
-        currentPatience = maxPatience;
+        currentPatience = customerScript.maxPatience;
         customerScript = GetComponent<Customer>();
 
-        startTurningRed = maxPatience / 3f;
-        fullyRed = maxPatience / 6f;
+        startTurningRed = customerScript.maxPatience / 3f;
+        fullyRed = customerScript.maxPatience / 6f;
 
         if (customerRenderer == null) customerRenderer = GetComponent<SpriteRenderer>();
 
@@ -48,7 +49,7 @@ public class CustomerPatience : MonoBehaviour
 
     void Update()
     {
-        if (customerScript.currentState == Customer.CustomerState.Leaving)
+        if (customerScript.currentState == Customer_State.Leaving)
         {
             bubbleObject.SetActive(false); // Hide the bubble
             customerRenderer.color = Color.white; // Reset color
@@ -58,9 +59,9 @@ public class CustomerPatience : MonoBehaviour
         UpdateBubbleVisibility();
 
         // Only process patience if Waiting or Seated
-        if (customerScript.currentState == Customer.CustomerState.Waiting ||
-            customerScript.currentState == Customer.CustomerState.Seated ||
-            customerScript.currentState == Customer.CustomerState.WaitingForFood)
+        if (customerScript.currentState == Customer_State.Waiting ||
+            customerScript.currentState == Customer_State.Seated ||
+            customerScript.currentState == Customer_State.WaitingForFood)
         {
             currentPatience -= Time.deltaTime;
             UpdateVisuals();
@@ -72,7 +73,7 @@ public class CustomerPatience : MonoBehaviour
                 this.enabled = false;
             }
         }
-        else if (customerScript.currentState == Customer.CustomerState.Eating)
+        else if (customerScript.currentState == Customer_State.Eating)
         {
             // Reset visuals when they are finally served
             customerRenderer.color = Color.white;
@@ -82,11 +83,11 @@ public class CustomerPatience : MonoBehaviour
 
     void UpdateVisuals()
     {
-        if (customerScript.currentState == Customer.CustomerState.Leaving) return;
+        if (customerScript.currentState == Customer_State.Leaving) return;
 
         // If IsDragging is true, we check if THIS object is the one moving.
         // If the position has changed since the last frame, it means we are dragging it.
-        if (Customer.IsDragging)
+        if (DragNDrop.IsDragging)
         {
             // If the customer moved, update the anchor and stop the shake
             if (transform.localPosition != originalLocalPosition)
@@ -120,7 +121,7 @@ public class CustomerPatience : MonoBehaviour
     void UpdateBubbleVisibility()
     {
         
-        bool shouldShow = (customerScript.currentState == Customer.CustomerState.Seated);
+        bool shouldShow = (customerScript.currentState == Customer_State.Seated);
 
         if (bubbleObject.activeSelf != shouldShow)
         {
@@ -147,7 +148,7 @@ public class CustomerPatience : MonoBehaviour
 
     public void ResetPatience()
     {
-        currentPatience = maxPatience;
+        currentPatience = customerScript.maxPatience;
         customerRenderer.color = Color.white;
     }
 

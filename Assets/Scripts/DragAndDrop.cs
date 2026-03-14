@@ -19,9 +19,11 @@ public class DragAndDrop : MonoBehaviour
     public float snapBackSpeed;
     public int orderIndex;
 
+    Customer customerWCS;
+
     private void Start()
     {
-        origin = transform.position;
+        origin = customerWCS.myTarget.transform.position;
     }
 
     void Update()

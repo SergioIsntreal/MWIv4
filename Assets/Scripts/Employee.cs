@@ -147,7 +147,7 @@ public class Employee : MonoBehaviour
             Debug.Log($"Employee took order: {choice}");
 
             // Tell the customer to change state to 'WaitingForFood'
-            table.currentCustomer.currentState = Customer.CustomerState.WaitingForFood;
+            table.currentCustomer.currentState = Customer_State.WaitingForFood;
 
             // 4. Update the Customer's bubble to show the FOOD they want
             // You'll need a way to map the string 'choice' to a sprite

@@ -12,7 +12,7 @@ public class BistroManager : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            if (Customer.IsDragging) return;
+            if (DragNDrop.IsDragging) return;
 
             RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
 

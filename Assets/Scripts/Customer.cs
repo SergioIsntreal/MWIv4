@@ -3,22 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 using Pathfinding;
 
+public enum Customer_State { Entering, Waiting, Dragged, Seated, WaitingForFood, Eating, Paying, Leaving }
 public class Customer : MonoBehaviour
 {
-    public static bool IsDragging { get; private set; }
-
-    public enum CustomerState { Entering, Waiting, Dragged, Seated, WaitingForFood, Eating, Paying, Leaving }
-    public CustomerState currentState = CustomerState.Entering;
+    //public static bool IsDragging { get; private set; }
+    
+    public Customer_State currentState = Customer_State.Entering;
     public Transform bubblePos;
 
-    private Transform currentSlot;
+    public Transform currentSlot;
     private Vector3 doorPosition;
-    private AILerp aiLerp;
+    public AILerp aiLerp;
     private AIDestinationSetter destSetter;
-    private GameObject myTarget;
+    public GameObject myTarget;
     private TableStation assignedTable;
-
-    private CursorManager cursorMgr;
+    public float maxPatience = 16f;
 
     // EXPERIMENT: STATE MACHINES
     #region State Machine Variables
@@ -54,7 +53,6 @@ public class Customer : MonoBehaviour
 
     void Awake()
     {
-        cursorMgr = FindFirstObjectByType<CursorManager>();
 
         aiLerp = GetComponent<AILerp>();
         destSetter = GetComponent<AIDestinationSetter>();
@@ -86,15 +84,8 @@ public class Customer : MonoBehaviour
 
     void Start()
     {
-        // 1. Force the AI to be ready to move
-        if (aiLerp != null)
-        {
-            aiLerp.canMove = true;
-            aiLerp.canSearch = true;
-        }
-
-        // 2. Find a seat immediately
-        MoveToWaitingArea();
+        aiLerp.canMove = true;
+        aiLerp.canSearch = true;
 
         // STATE MACHINE LOGIC
         cStateMachine.Initialize(EnteringState);
@@ -102,25 +93,11 @@ public class Customer : MonoBehaviour
 
     void Update()
     {
-        // DEBUG: Check if we have arrived at the waiting chair
-        if (currentState == CustomerState.Entering)
-        {
-            float dist = Vector3.Distance(transform.position, myTarget.transform.position);
-
-            // If we are close to the chair (within 0.2 units)
-            if (dist < 0.2f)
-            {
-                Debug.Log($"[Customer] {gameObject.name} arrived at Waiting Chair. Switching state to WAITING.");
-                currentState = CustomerState.Waiting;
-                // This state change is what triggers the Patience Timer!
-            }
-        }
-
-        // STATE MACHINE LOGIC
         cStateMachine.CurrentCustomerState.FrameUpdate();
     }
 
-    void MoveToWaitingArea()
+    // Referenced by: "CustomerEnteringState"
+    public void MoveToWaitingArea()
     {
         if (WaitingAreaManager.Instance == null)
         {
@@ -129,23 +106,13 @@ public class Customer : MonoBehaviour
         }
 
         currentSlot = WaitingAreaManager.Instance.GetClosestSlot(transform.position);
+        myTarget.transform.position = currentSlot.position;
+        Debug.Log($"[Customer] {gameObject.name} has arrived!");
 
-        if (currentSlot != null)
-        {
-            myTarget.transform.position = currentSlot.position;
-            currentState = CustomerState.Entering;
-
-            Debug.Log($"[Customer] {gameObject.name} found a seat at {currentSlot.position}. Walking there now...");
-
-            if (aiLerp != null) aiLerp.SearchPath();
-        }
-        else
-        {
-            Debug.LogWarning("[Customer] Cafe full! Leaving immediately.");
-            LeaveBistro();
-        }
+        aiLerp.SearchPath();
     }
 
+    // Referenced by: "CustomerWaitingChairState"
     public void SeatAtTable(TableStation table)
     {
         assignedTable = table;
@@ -160,7 +127,7 @@ public class Customer : MonoBehaviour
         // Occupy Table
         table.isOccupied = true;
         table.currentCustomer = this;
-        currentState = CustomerState.Seated;
+        currentState = Customer_State.Seated;
 
         // Visuals & Layer
         this.gameObject.layer = LayerMask.NameToLayer("SeatedCustomer");
@@ -183,6 +150,8 @@ public class Customer : MonoBehaviour
         Debug.Log($"Customer snapped to table at {seatPos}");
     }
 
+
+    // Referenced by: "CustomerWaitingChairState" + "CustomerWaitingTableState"
     public void LeaveBistro()
     {
         // 1. If they were in a chair, free it up for the next person
@@ -217,7 +186,7 @@ public class Customer : MonoBehaviour
 
         // 5. Move to the door (using your saved doorPosition)
         myTarget.transform.position = doorPosition;
-        currentState = CustomerState.Leaving;
+        currentState = Customer_State.Leaving;
 
         // 6. Self-destruct once they reach the door
         StartCoroutine(DestroyAtDoor());
@@ -234,7 +203,7 @@ public class Customer : MonoBehaviour
         Destroy(gameObject);
     }
 
-    // DRAG AND DROP LOGIC
+    /* DRAG AND DROP LOGIC
 
     void OnMouseEnter()
     {
@@ -248,10 +217,10 @@ public class Customer : MonoBehaviour
 
     void OnMouseDown()
     {
-        if (currentState == CustomerState.Waiting || currentState == CustomerState.Entering)
+        if (currentState == Customer_State.Waiting || currentState == Customer_State.Entering)
         {
             IsDragging = true;
-            currentState = CustomerState.Dragged;
+            currentState = Customer_State.Dragged;
             cursorMgr.SetGrab(); // Change to grab icon
             if (aiLerp != null) aiLerp.canMove = false;
         }
@@ -259,7 +228,7 @@ public class Customer : MonoBehaviour
 
     void OnMouseDrag()
     {
-        if (currentState == CustomerState.Dragged)
+        if (currentState == Customer_State.Dragged)
         {
             Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             mousePos.z = 0;
@@ -269,7 +238,7 @@ public class Customer : MonoBehaviour
 
     void OnMouseUp()
     {
-        if (currentState == CustomerState.Dragged)
+        if (currentState == Customer_State.Dragged)
         {
             IsDragging = false;
 
@@ -314,6 +283,6 @@ public class Customer : MonoBehaviour
         transform.position = currentSlot.position;
         destSetter.target.position = currentSlot.position;
         //destSetter.target = myTarget.transform;
-        currentState = CustomerState.Waiting;
-    }
+        currentState = Customer_State.Waiting;
+    }*/
 }
