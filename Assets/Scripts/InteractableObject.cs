@@ -18,6 +18,7 @@ public class InteractableObject : MonoBehaviour
     public Transform waypoint;
 
     private FoodStation foodStation;
+    private TableStation tableStation;
     private Employee assignedWaiter;
     void Awake()
     {
@@ -43,12 +44,25 @@ public class InteractableObject : MonoBehaviour
             }
         }
 
+        if (type == InteractionType.TakingOrder && tableStation != null)
+        {
+            if (tableStation.needsOrder == false || tableStation.isOccupied == false)
+            {
+                Debug.Log("This table is empty, standing by...");
+                return false; // Tell the employee "No"
+            }
+            else
+            {
+                return true;
+            }
+        }
+        /*
         if (GetComponent<TableStation>().HasWaiterArrived())
         {
             Debug.Log($"Employee has arrived at table.");
             return true; // Tell the employee "Yes, start your timer"
-        }
-        return false;
+        }*/
+        return false; 
     }
 
     public void AssignWaiter(Employee waiter)

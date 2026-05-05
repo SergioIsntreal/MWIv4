@@ -1,0 +1,258 @@
+{
+    "name": "RevisedMovement",
+    "maps": [
+        {
+            "name": "Player",
+            "id": "8a7d82b7-45ab-46a7-82b5-3940fba2defc",
+            "actions": [
+                {
+                    "name": "Click",
+                    "type": "Button",
+                    "id": "a8247120-9252-4f48-9a28-d96b790a506d",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Drag",
+                    "type": "Button",
+                    "id": "2f2d439c-7cdf-45f8-8250-afddbe36eb62",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "a65a0fdb-3103-452f-bd5a-c6a8bef8da0c",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "Press",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse;Touch",
+                    "action": "Click",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1eef4f98-23d5-42f3-a015-2bb1a4c89aaa",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "Hold",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse;Touch",
+                    "action": "Drag",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "UI",
+            "id": "3d47094c-9684-4ed7-b529-97d66bb4d66f",
+            "actions": [
+                {
+                    "name": "Continue/Confirm",
+                    "type": "Button",
+                    "id": "377590df-8700-40cd-b6d7-929ca0e926af",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Skip Cutscene",
+                    "type": "Button",
+                    "id": "a8f1a42f-3e63-42fd-8cbd-bd266c3799de",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Fastforward",
+                    "type": "Button",
+                    "id": "e1b608b6-d9b7-420c-80be-8169d6380d88",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Navigate",
+                    "type": "Button",
+                    "id": "047d6450-a710-4ed8-87a2-12e30225e1b5",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "3708d35e-7344-4abe-b8ef-db5b1eb453c4",
+                    "path": "<Keyboard>/space",
+                    "interactions": "Press",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Continue/Confirm",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f453776b-e8fb-463b-9a56-54b81dd34031",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "Press",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse;Touch",
+                    "action": "Continue/Confirm",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "438bdb32-4471-46d5-be7d-e8b6707e53f5",
+                    "path": "<Keyboard>/enter",
+                    "interactions": "Press",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse;Touch",
+                    "action": "Continue/Confirm",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8759f740-52e4-4d7a-b67e-62469ac88058",
+                    "path": "<Keyboard>/tab",
+                    "interactions": "Hold(duration=3)",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Skip Cutscene",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "36a93077-5b22-4f1c-8cb2-e4e5a46e0820",
+                    "path": "<Keyboard>/space",
+                    "interactions": "Hold,MultiTap",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse;Touch",
+                    "action": "Fastforward",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "4c9d3cf9-9e22-4ec0-829a-132e60856887",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "Hold,MultiTap",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse;Touch",
+                    "action": "Fastforward",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "fdd437e2-8ed8-4f63-99d3-4c2c57946271",
+                    "path": "<Keyboard>/enter",
+                    "interactions": "Hold,MultiTap",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse;Touch",
+                    "action": "Fastforward",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8aca4660-a320-4efb-92c3-5f1ae5aea5a3",
+                    "path": "<Keyboard>/upArrow",
+                    "interactions": "Press",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Navigate",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5538a849-f46d-4f15-9566-89b8ce2359c2",
+                    "path": "<Keyboard>/downArrow",
+                    "interactions": "Press",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Navigate",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": [
+        {
+            "name": "Keyboard&Mouse",
+            "bindingGroup": "Keyboard&Mouse",
+            "devices": [
+                {
+                    "devicePath": "<Keyboard>",
+                    "isOptional": false,
+                    "isOR": false
+                },
+                {
+                    "devicePath": "<Mouse>",
+                    "isOptional": false,
+                    "isOR": false
+                }
+            ]
+        },
+        {
+            "name": "Gamepad",
+            "bindingGroup": "Gamepad",
+            "devices": [
+                {
+                    "devicePath": "<Gamepad>",
+                    "isOptional": false,
+                    "isOR": false
+                }
+            ]
+        },
+        {
+            "name": "Touch",
+            "bindingGroup": "Touch",
+            "devices": [
+                {
+                    "devicePath": "<Touchscreen>",
+                    "isOptional": false,
+                    "isOR": false
+                }
+            ]
+        },
+        {
+            "name": "Joystick",
+            "bindingGroup": "Joystick",
+            "devices": [
+                {
+                    "devicePath": "<Joystick>",
+                    "isOptional": false,
+                    "isOR": false
+                }
+            ]
+        },
+        {
+            "name": "XR",
+            "bindingGroup": "XR",
+            "devices": [
+                {
+                    "devicePath": "<XRController>",
+                    "isOptional": false,
+                    "isOR": false
+                }
+            ]
+        }
+    ]
+}

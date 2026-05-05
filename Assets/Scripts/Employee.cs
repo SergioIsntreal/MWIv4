@@ -189,7 +189,7 @@ public class Employee : MonoBehaviour
     void StartWorking()
     {
         // 1. Ask the object if we are allowed to interact
-        if (currentTaskObject.ShouldIStartInteraction())
+        if (currentTaskObject.ShouldIStartInteraction() == true)
         {
             
             // 2. If the object says "Yes", start the timer
